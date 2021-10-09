@@ -10,6 +10,8 @@ It currently includes utilities that make it easy to generate geometry and a sim
 (ja)このパッケージはSp3dObj（simple_3d package）を使ったユーティリティのセットです。  
 現在、簡単にジオメトリを生成出来るユーティリティや、マテリアルの簡易的なセットが含まれています。
 
+[simple_3d package](https://pub.dev/packages/simple_3d)
+
 ## Usage
 ### Create Geometry
 ```dart
