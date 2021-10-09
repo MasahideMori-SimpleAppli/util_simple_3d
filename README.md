@@ -11,7 +11,7 @@ It currently includes utilities that make it easy to generate geometry and a sim
 現在、簡単にジオメトリを生成出来るユーティリティや、マテリアルの簡易的なセットが含まれています。
 
 ## Usage
-### Create Data
+### Create Geometry
 ```dart
 Sp3dObj obj = Util_Sp3dGeometry.capsule(50, 250);
 ```
