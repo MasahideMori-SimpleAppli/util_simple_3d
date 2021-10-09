@@ -15,6 +15,9 @@ It currently includes utilities that make it easy to generate geometry and a sim
 ## Usage
 ### Create Geometry
 ```dart
+import 'package:simple_3d/simple_3d.dart';
+import 'package:util_simple_3d/util_sp3d_geometry.dart';
+
 Sp3dObj obj = Util_Sp3dGeometry.capsule(50, 250);
 ```
 
