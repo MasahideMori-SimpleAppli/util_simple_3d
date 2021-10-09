@@ -4,10 +4,10 @@
 (ja)日本語版は(ja)として記載してあります。
 
 ## Overview
-(en)This package is a set of utilities using Sp3dObj (simple_3d package).
+(en)This package is a set of utilities for Sp3dObj (simple_3d package).
 It currently includes utilities that make it easy to generate geometry and a simple set of materials.
 
-(ja)このパッケージはSp3dObj（simple_3d package）を使ったユーティリティのセットです。  
+(ja)このパッケージはSp3dObj（simple_3d package）用のユーティリティのセットです。  
 現在、簡単にジオメトリを生成出来るユーティリティや、マテリアルの簡易的なセットが含まれています。
 
 [simple_3d package](https://pub.dev/packages/simple_3d)
