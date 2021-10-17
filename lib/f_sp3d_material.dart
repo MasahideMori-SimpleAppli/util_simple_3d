@@ -35,4 +35,16 @@ class F_Sp3dMaterial {
   static final Sp3dMaterial grey_wire = Sp3dMaterial(Color.fromARGB(255, 224, 224, 224), false, 1,
       Color.fromARGB(255, 224, 224, 224), null, null);
 
+  static final Sp3dMaterial white = Sp3dMaterial(Color.fromARGB(255, 255, 255, 255), true, 1,
+      Color.fromARGB(255, 255, 255, 255), null, null);
+
+  static final Sp3dMaterial white_wire = Sp3dMaterial(Color.fromARGB(255, 255, 255, 255), false, 1,
+      Color.fromARGB(255, 255, 255, 255), null, null);
+
+  static final Sp3dMaterial black = Sp3dMaterial(Color.fromARGB(255, 0, 0, 0), true, 1,
+      Color.fromARGB(255, 0, 0, 0), null, null);
+
+  static final Sp3dMaterial black_wire = Sp3dMaterial(Color.fromARGB(255, 0, 0, 0), false, 1,
+      Color.fromARGB(255, 0, 0, 0), null, null);
+
 }

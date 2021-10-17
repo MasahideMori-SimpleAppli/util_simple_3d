@@ -21,17 +21,88 @@ import 'package:util_simple_3d/util_sp3d_geometry.dart';
 Sp3dObj obj = Util_Sp3dGeometry.capsule(50, 250);
 ```
 
+### Use Default Material
+```dart
+import 'package:simple_3d/simple_3d.dart';
+import 'package:util_simple_3d/f_sp3d_material.dart';
+
+Sp3dObj obj = Util_Sp3dGeometry.cube(200,200,200,4,4,4);
+obj.materials.add(F_Sp3dMaterial.green);
+obj.fragments[0].faces[0].material_index=1;
+```
+
+## Geometry type
+### Tile
+```dart
+Sp3dObj obj = Util_Sp3dGeometry.tile(200, 200, 4, 4);
+obj.materials[0] = F_Sp3dMaterial.grey..stroke_color=Color.fromARGB(255, 0, 255, 0);
+```
+![Tile](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/tile_sample1.png "Tile")
+### Cube
+```dart
+Sp3dObj obj = Util_Sp3dGeometry.cube(200,200,200,4,4,4);
+obj.materials.add(F_Sp3dMaterial.green);
+obj.fragments[0].faces[0].material_index=1;
+obj.materials[0] = F_Sp3dMaterial.grey..stroke_color=Color.fromARGB(255, 0, 0, 255);
+obj.rotate(Sp3dV3D(1,1,0).nor(), 30*3.14/180);
+```
+![Cube](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cube_sample1.png "Cube")
+### Circle
+```dart
+Sp3dObj obj = Util_Sp3dGeometry.circle(100, fragments: 20);
+obj.materials[0] = F_Sp3dMaterial.grey..stroke_color=Color.fromARGB(255, 0, 255, 0);
+```
+![Circle](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/circle_sample1.png "Circle")
+### Cone
+```dart
+Sp3dObj obj = Util_Sp3dGeometry.cone(100, 200);
+obj.materials[0] = F_Sp3dMaterial.grey..stroke_color=Color.fromARGB(255, 0, 255, 0);
+obj.rotate(Sp3dV3D(1, 0, 0), -100*3.14/180);
+obj.move(Sp3dV3D(0, -100, 0));
+```
+![Cone](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cone_sample1.png "Cone")
+### Pillar
+```dart
+Sp3dObj obj = Util_Sp3dGeometry.pillar(50, 50, 200);
+obj.materials[0] = F_Sp3dMaterial.grey..stroke_color=Color.fromARGB(255, 0, 255, 0);
+obj.rotate(Sp3dV3D(1, 0, 0), -120*3.14/180);
+obj.move(Sp3dV3D(0, -100, 0));
+```
+![Pillar](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/pillar_sample1.png "Pillar")
+### Sphere
+```dart
+Sp3dObj obj = Util_Sp3dGeometry.sphere(100);
+obj.materials[0] = F_Sp3dMaterial.grey..stroke_color=Color.fromARGB(255, 0, 255, 0);
+```
+![Sphere](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/sphere_sample1.png "Sphere")
+### Capsule
+```dart
+Sp3dObj obj = Util_Sp3dGeometry.capsule(50,200);
+obj.materials[0] = F_Sp3dMaterial.grey..stroke_color=Color.fromARGB(255, 0, 255, 0);
+obj.move(Sp3dV3D(0, 100, 0));
+```
+![Capsule](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/capsule_sample1.png "Capsule")
+### Wire frame
+```dart
+Sp3dObj obj = Util_Sp3dGeometry.cube(200,200,200,4,4,4);
+obj.materials.add(F_Sp3dMaterial.green_wire);
+obj.fragments[0].faces[0].material_index=1;
+obj.materials[0] = F_Sp3dMaterial.blue_wire;
+obj.rotate(Sp3dV3D(-0.2,0.5,0).nor(), 15*3.14/180);
+```
+![Wire frame](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/wire_frame_sample1.png "Wire frame")
+
+## About future development
+(en)Some geometry may be added in the future. 
+(ja)今後、いくつかのジオメトリが追加される可能性があります。
+
 ## About Naming rule in this package
 (en)Utilities are prefixed with "Util_".  
 Static field definition files are prefixed with "F_".  
 These are set up for easy calling from the IDE.  
 (ja)ユーティリティは接頭語に"Util_"がつきます。  
 静的なフィールド定義ファイルは接頭語に"F_"がつきます。  
-これらはIDEから簡単に呼び出すために設定されています。  
-
-## About future development
-(en)I will publish a package containing a render view for screen display later. Please wait.  
-(ja)画面表示用のレンダービューを含むパッケージを後で公開します。現在公開の準備をしています。
+これらはIDEから簡単に呼び出すために設定されています。
 
 ## About version control
 (en)The C part will be changed at the time of version upgrade.
