@@ -93,7 +93,7 @@ obj.rotate(Sp3dV3D(-0.2,0.5,0).nor(), 15*3.14/180);
 ![Wire frame](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/wire_frame_sample1.png "Wire frame")
 
 ## About future development
-(en)Some geometry may be added in the future. 
+(en)Some geometry may be added in the future.  
 (ja)今後、いくつかのジオメトリが追加される可能性があります。
 
 ## About Naming rule in this package
