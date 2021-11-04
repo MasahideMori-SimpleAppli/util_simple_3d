@@ -1,7 +1,7 @@
 name: util_simple_3d
 description: Utility for Sp3dObj. Includes 3D geometry generation utility and more.
-version: 0.0.2
-repository: https://github.com/MasahideMori1111/util_simple_3d
+version: 1.0.0
+repository: https://github.com/MasahideMori-SimpleAppli/util_simple_3d
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  simple_3d: ^3.3.0
+  simple_3d: ^4.0.0
 
 dev_dependencies:
   flutter_test:
