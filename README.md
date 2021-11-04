@@ -93,7 +93,7 @@ obj.rotate(Sp3dV3D(-0.2,0.5,0).nor(), 15*3.14/180);
 ![Wire frame](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/wire_frame_sample1.png "Wire frame")
 
 ## Support
-(en)If for any reason you need paid support, please contact my company.  
+(en)If you need paid support, please contact my company.  
 [SimpleAppli Inc.](https://simpleappli.com/en/index_en.html)  
 (ja)もし何らかの理由で有償のサポートが必要な場合は私の会社に問い合わせてください。  
 このパッケージは私が個人で開発していますが、会社経由でサポートできる場合があります。  
