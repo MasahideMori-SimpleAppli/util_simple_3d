@@ -28,7 +28,6 @@ obj.fragments[0].faces[0].materialIndex=1;
 ```
 
 ## 利用出来るジオメトリのタイプ
-## Geometry type
 ### Tile
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.tile(200, 200, 4, 4);
