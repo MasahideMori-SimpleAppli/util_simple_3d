@@ -9,18 +9,18 @@ import 'f_sp3d_material.dart';
 ///
 /// First edition creation date 2021-09-2 20:07:21
 ///
-class Util_Sp3dGeometry {
-  static final double _to_radian = pi / 180;
+class UtilSp3dGeometry {
+  static final double _toRadian = pi / 180;
 
   /// (en)Creates and returns a list of list indexes.
   ///
   /// (ja)リストのインデックスのリストを作成して返します。
   ///
-  /// * [base_index] : The value to add to the index.
-  static List<int> _get_indexes(List<dynamic> l, int base_index) {
+  /// * [baseIndex] : The value to add to the index.
+  static List<int> _getIndexes(List<dynamic> l, int baseIndex) {
     List<int> r = [];
     for (int i = 0; i < l.length; i++) {
-      r.add(i + base_index);
+      r.add(i + baseIndex);
     }
     return r;
   }
@@ -42,40 +42,40 @@ class Util_Sp3dGeometry {
   ///
   /// * [w] : width.
   /// * [h] : height.
-  /// * [w_split] : Number of divisions in the width direction. Must be 1 or more.
-  /// * [h_split] : Number of divisions in the height direction. Must be 1 or more.
+  /// * [wSplit] : Number of divisions in the width direction. Must be 1 or more.
+  /// * [hSplit] : Number of divisions in the height direction. Must be 1 or more.
   ///
   /// Returns 3d tile vertices. [[tiles of horizontal...] tiles of vertical...].
-  static List<List<Sp3dV3D>> _tile_v3d(
-      double w, double h, int w_split, int h_split) {
+  static List<List<Sp3dV3D>> _tileV3d(
+      double w, double h, int wSplit, int hSplit) {
     final double start = -w / 2;
     final double bottom = -h / 2;
-    final double w_add = w / w_split;
-    final double end_base = start + w_add;
-    final double h_add = h / h_split;
-    final double top_base = bottom + h_add;
-    List<double> start_list = [];
-    List<double> end_list = [];
-    List<double> top_list = [];
-    List<double> bottom_list = [];
-    for (int i = 0; i < w_split; i++) {
-      double p = i * w_add;
-      start_list.add(start + p);
-      end_list.add(end_base + p);
+    final double wAdd = w / wSplit;
+    final double endBase = start + wAdd;
+    final double hAdd = h / hSplit;
+    final double topBase = bottom + hAdd;
+    List<double> startList = [];
+    List<double> endList = [];
+    List<double> topList = [];
+    List<double> bottomList = [];
+    for (int i = 0; i < wSplit; i++) {
+      double p = i * wAdd;
+      startList.add(start + p);
+      endList.add(endBase + p);
     }
-    for (int i = 0; i < h_split; i++) {
-      double p = i * h_add;
-      bottom_list.add(bottom + p);
-      top_list.add(top_base + p);
+    for (int i = 0; i < hSplit; i++) {
+      double p = i * hAdd;
+      bottomList.add(bottom + p);
+      topList.add(topBase + p);
     }
     List<List<Sp3dV3D>> r = [];
-    for (int i = 0; i < h_split; i++) {
-      for (int j = 0; j < w_split; j++) {
+    for (int i = 0; i < hSplit; i++) {
+      for (int j = 0; j < wSplit; j++) {
         r.add([
-          Sp3dV3D(start_list[j], top_list[i], 0), // lt
-          Sp3dV3D(start_list[j], bottom_list[i], 0), // lb
-          Sp3dV3D(end_list[j], bottom_list[i], 0), // rb
-          Sp3dV3D(end_list[j], top_list[i], 0) // rt
+          Sp3dV3D(startList[j], topList[i], 0), // lt
+          Sp3dV3D(startList[j], bottomList[i], 0), // lb
+          Sp3dV3D(endList[j], bottomList[i], 0), // rb
+          Sp3dV3D(endList[j], topList[i], 0) // rt
         ]);
       }
     }
@@ -90,20 +90,20 @@ class Util_Sp3dGeometry {
   ///
   /// * [w] : width.
   /// * [h] : height.
-  /// * [w_split] : Number of divisions in the width direction. Must be 1 or more.
-  /// * [h_split] : Number of divisions in the height direction. Must be 1 or more.
+  /// * [wSplit] : Number of divisions in the width direction. Must be 1 or more.
+  /// * [hSplit] : Number of divisions in the height direction. Must be 1 or more.
   /// * [material] : face material
   ///
   /// Returns 3d tile obj.
-  static Sp3dObj tile(
-      double w, double h, int w_split, int h_split, {Sp3dMaterial? material}) {
-    List<List<Sp3dV3D>> tile = _tile_v3d(w, h, w_split, h_split);
+  static Sp3dObj tile(double w, double h, int wSplit, int hSplit,
+      {Sp3dMaterial? material}) {
+    List<List<Sp3dV3D>> tile = _tileV3d(w, h, wSplit, hSplit);
     List<Sp3dV3D> serialized = _serialize(tile);
     List<Sp3dFragment> fragments = [];
     int count = 0;
     for (List<Sp3dV3D> face in tile) {
       fragments.add(Sp3dFragment(
-          false, [Sp3dFace(_get_indexes(face, count), 0)], 0, null));
+          false, [Sp3dFace(_getIndexes(face, count), 0)], 0, null));
       count += face.length;
     }
     return Sp3dObj(
@@ -112,7 +112,7 @@ class Util_Sp3dGeometry {
         serialized,
         fragments,
         [
-          material != null ? material : F_Sp3dMaterial.grey,
+          material != null ? material : FSp3dMaterial.grey,
         ],
         [],
         null);
@@ -125,36 +125,36 @@ class Util_Sp3dGeometry {
   /// * [w] : width.
   /// * [h] : height.
   /// * [d] : depth.
-  /// * [w_split] : Number of divisions in the width direction. Must be 1 or more.
-  /// * [h_split] : Number of divisions in the height direction. Must be 1 or more.
-  /// * [d_split] : Number of divisions in the depth direction. Must be 1 or more.
+  /// * [wSplit] : Number of divisions in the width direction. Must be 1 or more.
+  /// * [hSplit] : Number of divisions in the height direction. Must be 1 or more.
+  /// * [dSplit] : Number of divisions in the depth direction. Must be 1 or more.
   ///
   /// Returns 3d cube vertices. [[horizontal of front1,2,3,4,back1,2,3,4] vertical of ...].
-  static List<List<Sp3dV3D>> _cube_v3d(
-      double w, double h, double d, int w_split, int h_split, int d_split) {
+  static List<List<Sp3dV3D>> _cubeV3d(
+      double w, double h, double d, int wSplit, int hSplit, int dSplit) {
     List<List<Sp3dV3D>> r = [];
-    List<List<Sp3dV3D>> front_tile = _tile_v3d(w, h, w_split, h_split);
-    Sp3dV3D to_front = Sp3dV3D(0, 0, d);
-    for (List<Sp3dV3D> i in front_tile) {
+    List<List<Sp3dV3D>> frontTile = _tileV3d(w, h, wSplit, hSplit);
+    Sp3dV3D toFrontV = Sp3dV3D(0, 0, d);
+    for (List<Sp3dV3D> i in frontTile) {
       for (Sp3dV3D j in i) {
-        j.add(to_front);
+        j.add(toFrontV);
       }
     }
     // 刻み幅
-    Sp3dV3D splited_d = Sp3dV3D(0, 0, -d / d_split);
+    Sp3dV3D splitDist = Sp3dV3D(0, 0, -d / dSplit);
     // z軸で手前から奥へ向けてマッピング。
-    for (int z = 0; z < d_split; z++) {
-      for (List<Sp3dV3D> tile in front_tile) {
-        List<Sp3dV3D> cube_v = [];
+    for (int z = 0; z < dSplit; z++) {
+      for (List<Sp3dV3D> tile in frontTile) {
+        List<Sp3dV3D> cubeV = [];
         // front 4 vertex
         for (Sp3dV3D t in tile) {
-          cube_v.add(t + (splited_d * z));
+          cubeV.add(t + (splitDist * z));
         }
         // back 4 vertex
         for (Sp3dV3D t in tile.reversed) {
-          cube_v.add(t + (splited_d * (z + 1)));
+          cubeV.add(t + (splitDist * (z + 1)));
         }
-        r.add(cube_v);
+        r.add(cubeV);
       }
     }
     return r;
@@ -167,20 +167,21 @@ class Util_Sp3dGeometry {
   /// * [w] : width.
   /// * [h] : height.
   /// * [d] : depth.
-  /// * [w_split] : Number of divisions in the width direction. Must be 1 or more.
-  /// * [h_split] : Number of divisions in the height direction. Must be 1 or more.
-  /// * [d_split] : Number of divisions in the depth direction. Must be 1 or more.
+  /// * [wSplit] : Number of divisions in the width direction. Must be 1 or more.
+  /// * [hSplit] : Number of divisions in the height direction. Must be 1 or more.
+  /// * [dSplit] : Number of divisions in the depth direction. Must be 1 or more.
   /// * [material] : face material
   ///
   /// Returns 3d cube obj.
-  static Sp3dObj cube(double w, double h, double d, int w_split, int h_split,
-      int d_split, {Sp3dMaterial? material}) {
-    List<List<Sp3dV3D>> c = _cube_v3d(w, h, d, w_split, h_split, d_split);
+  static Sp3dObj cube(
+      double w, double h, double d, int wSplit, int hSplit, int dSplit,
+      {Sp3dMaterial? material}) {
+    List<List<Sp3dV3D>> c = _cubeV3d(w, h, d, wSplit, hSplit, dSplit);
     List<Sp3dV3D> serialized = _serialize(c);
     List<Sp3dFragment> fragments = [];
     int count = 0;
     for (List<Sp3dV3D> v in c) {
-      List<int> i = _get_indexes(v, count);
+      List<int> i = _getIndexes(v, count);
       List<Sp3dFace> faces = [
         Sp3dFace([i[0], i[1], i[2], i[3]], 0), // front
         Sp3dFace([i[4], i[5], i[6], i[7]], 0), // back
@@ -198,7 +199,7 @@ class Util_Sp3dGeometry {
         serialized,
         fragments,
         [
-          material != null ? material : F_Sp3dMaterial.grey,
+          material != null ? material : FSp3dMaterial.grey,
         ],
         [],
         null);
@@ -216,16 +217,16 @@ class Util_Sp3dGeometry {
   /// * [theta] : 360 for a circle. 180 for a semicircle. The range is 1-360 degrees.
   ///
   /// Returns 3d circle vertices.
-  static List<Sp3dV3D> _circle_v3d(double r, int fragments,
+  static List<Sp3dV3D> _circleV3d(double r, int fragments,
       {double theta = 360}) {
     // 回転角（逆時計周り）
-    final double radian = theta / fragments * _to_radian;
+    final double radian = theta / fragments * _toRadian;
     // 始点から終点への軸ベクトルを考える。
-    Sp3dV3D nor_axis = Sp3dV3D(0, 0, 1);
+    Sp3dV3D norAxis = Sp3dV3D(0, 0, 1);
     // 半径rの回転ベクトル
     List<Sp3dV3D> c = [Sp3dV3D(r, 0, 0)];
     for (int i = 0; i < fragments; i++) {
-      c.add(c.last.rotated(nor_axis, radian));
+      c.add(c.last.rotated(norAxis, radian));
     }
     c.add(Sp3dV3D(0, 0, 0));
     return c;
@@ -250,23 +251,23 @@ class Util_Sp3dGeometry {
   /// Returns 3d circle obj.
   static Sp3dObj circle(double r,
       {int fragments = 8, double theta = 360, Sp3dMaterial? material}) {
-    List<Sp3dV3D> serialized = _circle_v3d(r, fragments, theta: theta);
-    List<int> indexes = _get_indexes(serialized, 0);
-    List<Sp3dFragment> mfragments = [];
-    final int last_index = indexes.length - 1;
+    List<Sp3dV3D> serialized = _circleV3d(r, fragments, theta: theta);
+    List<int> indexes = _getIndexes(serialized, 0);
+    List<Sp3dFragment> mFragments = [];
+    final int lastIndex = indexes.length - 1;
     for (int i = 0; i < fragments; i++) {
       List<Sp3dFace> faces = [
-        Sp3dFace([indexes[last_index], indexes[i], indexes[(i + 1)]], 0)
+        Sp3dFace([indexes[lastIndex], indexes[i], indexes[(i + 1)]], 0)
       ];
-      mfragments.add(Sp3dFragment(false, faces, 0, null));
+      mFragments.add(Sp3dFragment(false, faces, 0, null));
     }
     return Sp3dObj(
         "none",
         "none",
         serialized,
-        mfragments,
+        mFragments,
         [
-          material != null ? material : F_Sp3dMaterial.grey,
+          material != null ? material : FSp3dMaterial.grey,
         ],
         [],
         null);
@@ -287,61 +288,59 @@ class Util_Sp3dGeometry {
   /// * [fragments] : The number of triangles that make up a circle. The more it is, the smoother it becomes.
   /// Divide the area for the angle specified by theta by this number of triangles.
   /// * [theta] : 360 for a circle. 180 for a semicircle. The range is 1-360 degrees.
-  /// * [is_closed_bottom] : If true, close bottom. otherwise open.
-  /// * [is_closed_side] : If true, close the side on the start point side and the side on the end point side. otherwise open.
+  /// * [isClosedBottom] : If true, close bottom. otherwise open.
+  /// * [isClosedSide] : If true, close the side on the start point side and the side on the end point side. otherwise open.
   /// * [material] : face material
   ///
   /// Returns 3d cone obj.
   static Sp3dObj cone(double r, double h,
       {int fragments = 8,
-        double theta = 360,
-        bool is_closed_bottom = true,
-        bool is_closed_side = true,
-        Sp3dMaterial? material}) {
-    List<Sp3dV3D> serialized = _circle_v3d(r, fragments, theta: theta);
-    List<int> indexes = _get_indexes(serialized, 0);
+      double theta = 360,
+      bool isClosedBottom = true,
+      bool isClosedSide = true,
+      Sp3dMaterial? material}) {
+    List<Sp3dV3D> serialized = _circleV3d(r, fragments, theta: theta);
+    List<int> indexes = _getIndexes(serialized, 0);
     // 頂点を追加（底面は追加済み）
     serialized.add(Sp3dV3D(0, 0, h));
-    List<Sp3dFragment> mfragments = [];
-    final int bottom_index = serialized.length - 2;
-    final int top_index = serialized.length - 1;
-    indexes.add(top_index);
+    List<Sp3dFragment> mFragments = [];
+    final int bottomIndex = serialized.length - 2;
+    final int topIndex = serialized.length - 1;
+    indexes.add(topIndex);
     for (int i = 0; i < fragments; i++) {
       // 底面
-      if (is_closed_bottom) {
-        List<Sp3dFace> bottom_faces = [
-          Sp3dFace([indexes[bottom_index], indexes[(i + 1)], indexes[i]], 0)
+      if (isClosedBottom) {
+        List<Sp3dFace> bottomFaces = [
+          Sp3dFace([indexes[bottomIndex], indexes[(i + 1)], indexes[i]], 0)
         ];
-        mfragments.add(Sp3dFragment(false, bottom_faces, 0, null));
+        mFragments.add(Sp3dFragment(false, bottomFaces, 0, null));
       }
       // 頂点
-      List<Sp3dFace> top_faces = [
-        Sp3dFace([indexes[top_index], indexes[i], indexes[(i + 1)]], 0)
+      List<Sp3dFace> topFaces = [
+        Sp3dFace([indexes[topIndex], indexes[i], indexes[(i + 1)]], 0)
       ];
-      mfragments.add(Sp3dFragment(false, top_faces, 0, null));
+      mFragments.add(Sp3dFragment(false, topFaces, 0, null));
     }
     // 始点側と終点側の側面を閉じる。
-    if (is_closed_side) {
-      List<Sp3dFace> sp_faces = [
-        Sp3dFace([indexes[top_index], indexes[bottom_index], indexes[0]], 0)
+    if (isClosedSide) {
+      List<Sp3dFace> spFaces = [
+        Sp3dFace([indexes[topIndex], indexes[bottomIndex], indexes[0]], 0)
       ];
-      mfragments.add(Sp3dFragment(false, sp_faces, 0, null));
-      List<Sp3dFace> ep_faces = [
-        Sp3dFace([
-          indexes[top_index],
-          indexes[bottom_index - 1],
-          indexes[bottom_index]
-        ], 0)
+      mFragments.add(Sp3dFragment(false, spFaces, 0, null));
+      List<Sp3dFace> epFaces = [
+        Sp3dFace(
+            [indexes[topIndex], indexes[bottomIndex - 1], indexes[bottomIndex]],
+            0)
       ];
-      mfragments.add(Sp3dFragment(false, ep_faces, 0, null));
+      mFragments.add(Sp3dFragment(false, epFaces, 0, null));
     }
     return Sp3dObj(
         "none",
         "none",
         serialized,
-        mfragments,
+        mFragments,
         [
-          material != null ? material : F_Sp3dMaterial.grey,
+          material != null ? material : FSp3dMaterial.grey,
         ],
         [],
         null);
@@ -357,94 +356,89 @@ class Util_Sp3dGeometry {
   /// 360度の場合でも、円周の始点と終点はつながっていません。
   /// 回転したい場合はSp3dObjの機能を使用してください。
   ///
-  /// * [top_r] : top circle radius.
-  /// * [bottom_r] : bottom circle radius.
+  /// * [rTop] : top circle radius.
+  /// * [rBottom] : bottom circle radius.
   /// * [h] : height.
   /// * [fragments] : The number of triangles that make up a circle. The more it is, the smoother it becomes.
   /// Divide the area for the angle specified by theta by this number of triangles.
   /// * [theta] : 360 for a circle. 180 for a semicircle. The range is 1-360 degrees.
-  /// * [is_closed_bottom] : If true, close bottom. otherwise open.
-  /// * [is_closed_top] : If true, close top. otherwise open.
-  /// * [is_closed_side] : If true, close the side on the start point side and the side on the end point side. otherwise open.
+  /// * [isClosedBottom] : If true, close bottom. otherwise open.
+  /// * [isClosedTop] : If true, close top. otherwise open.
+  /// * [isClosedSide] : If true, close the side on the start point side and the side on the end point side. otherwise open.
   /// * [material] : face material
   ///
   /// Returns 3d pillar obj.
-  static Sp3dObj pillar(
-      double top_r, double bottom_r, double h,
+  static Sp3dObj pillar(double rTop, double rBottom, double h,
       {int fragments = 8,
-        double theta = 360,
-        bool is_closed_bottom = true,
-        bool is_closed_top = true,
-        bool is_closed_side = true,
-        Sp3dMaterial? material}) {
-    List<Sp3dV3D> btm = _circle_v3d(bottom_r, fragments, theta: theta);
-    final int bottom_index = btm.length - 1;
-    final int top_start = btm.length;
-    List<Sp3dV3D> top = _circle_v3d(top_r, fragments, theta: theta);
-    Sp3dV3D add_h = Sp3dV3D(0, 0, h);
+      double theta = 360,
+      bool isClosedBottom = true,
+      bool isClosedTop = true,
+      bool isClosedSide = true,
+      Sp3dMaterial? material}) {
+    List<Sp3dV3D> btm = _circleV3d(rBottom, fragments, theta: theta);
+    final int bottomIndex = btm.length - 1;
+    final int topStart = btm.length;
+    List<Sp3dV3D> top = _circleV3d(rTop, fragments, theta: theta);
+    Sp3dV3D addH = Sp3dV3D(0, 0, h);
     for (Sp3dV3D i in top) {
-      i.add(add_h);
+      i.add(addH);
     }
     btm.addAll(top);
-    List<int> indexes = _get_indexes(btm, 0);
-    int top_index = indexes.length - 1;
-    List<Sp3dFragment> mfragments = [];
+    List<int> indexes = _getIndexes(btm, 0);
+    int topIndex = indexes.length - 1;
+    List<Sp3dFragment> mFragments = [];
     for (int i = 0; i < fragments; i++) {
       // 底面
-      if (is_closed_bottom) {
-        List<Sp3dFace> bottom_faces = [
-          Sp3dFace([indexes[bottom_index], indexes[(i + 1)], indexes[i]], 0)
+      if (isClosedBottom) {
+        List<Sp3dFace> bottomFaces = [
+          Sp3dFace([indexes[bottomIndex], indexes[(i + 1)], indexes[i]], 0)
         ];
-        mfragments.add(Sp3dFragment(false, bottom_faces, 0, null));
+        mFragments.add(Sp3dFragment(false, bottomFaces, 0, null));
       }
       // 壁面
-      int top_i = i + top_start;
-      List<Sp3dFace> wall_faces = [
-        Sp3dFace([
-          indexes[top_i],
-          indexes[i],
-          indexes[(i + 1)],
-          indexes[(top_i + 1)]
-        ], 0)
+      int topI = i + topStart;
+      List<Sp3dFace> wallFaces = [
+        Sp3dFace(
+            [indexes[topI], indexes[i], indexes[(i + 1)], indexes[(topI + 1)]],
+            0)
       ];
-      mfragments.add(Sp3dFragment(false, wall_faces, 0, null));
+      mFragments.add(Sp3dFragment(false, wallFaces, 0, null));
       // 頂点
-      if (is_closed_top) {
-        List<Sp3dFace> top_faces = [
-          Sp3dFace(
-              [indexes[top_index], indexes[top_i], indexes[(top_i + 1)]], 0)
+      if (isClosedTop) {
+        List<Sp3dFace> topFaces = [
+          Sp3dFace([indexes[topIndex], indexes[topI], indexes[(topI + 1)]], 0)
         ];
-        mfragments.add(Sp3dFragment(false, top_faces, 0, null));
+        mFragments.add(Sp3dFragment(false, topFaces, 0, null));
       }
     }
     // 始点側と終点側の側面を閉じる。
-    if (is_closed_side) {
-      List<Sp3dFace> sp_faces = [
+    if (isClosedSide) {
+      List<Sp3dFace> spFaces = [
         Sp3dFace([
-          indexes[top_index],
-          indexes[bottom_index],
+          indexes[topIndex],
+          indexes[bottomIndex],
           indexes[0],
-          indexes[top_start]
+          indexes[topStart]
         ], 0)
       ];
-      mfragments.add(Sp3dFragment(false, sp_faces, 0, null));
-      List<Sp3dFace> ep_faces = [
+      mFragments.add(Sp3dFragment(false, spFaces, 0, null));
+      List<Sp3dFace> epFaces = [
         Sp3dFace([
-          indexes[top_index],
+          indexes[topIndex],
           indexes[indexes.length - 2],
-          indexes[bottom_index - 1],
-          indexes[bottom_index]
+          indexes[bottomIndex - 1],
+          indexes[bottomIndex]
         ], 0)
       ];
-      mfragments.add(Sp3dFragment(false, ep_faces, 0, null));
+      mFragments.add(Sp3dFragment(false, epFaces, 0, null));
     }
     return Sp3dObj(
         "none",
         "none",
         btm,
-        mfragments,
+        mFragments,
         [
-          material != null ? material : F_Sp3dMaterial.grey,
+          material != null ? material : FSp3dMaterial.grey,
         ],
         [],
         null);
@@ -459,28 +453,28 @@ class Util_Sp3dGeometry {
   /// 回転したい場合はSp3dObjの機能を使用してください。
   ///
   /// * [r] : radius.
-  /// * [x_fragments] : split of sphere surface x axis.
-  /// * [y_fragments] : split of sphere surface y axis.
-  /// * [w_theta] : The angle of how much to generate in the latitude direction. It is a sphere at 360. The range is 1-360 degrees.
-  /// * [h_theta] : The angle of how far to generate in the longitude direction. It is a sphere at 180. The range is 1-180 degrees.
+  /// * [xFragments] : split of sphere surface x axis.
+  /// * [yFragments] : split of sphere surface y axis.
+  /// * [wTheta] : The angle of how much to generate in the latitude direction. It is a sphere at 360. The range is 1-360 degrees.
+  /// * [hTheta] : The angle of how far to generate in the longitude direction. It is a sphere at 180. The range is 1-180 degrees.
   ///
   /// Returns 3d sphere vertex. e.g. The coordinates are [lon1*lat1, lon1*lat2, lon2*lat1..., top, bottom].
-  static List<Sp3dV3D> _sphere_v3d(double r, int x_fragments, int y_fragments,
-      double w_theta, double h_theta) {
+  static List<Sp3dV3D> _sphereV3d(
+      double r, int xFragments, int yFragments, double wTheta, double hTheta) {
     final Sp3dV3D bottom = Sp3dV3D(0, -r, 0);
     final Sp3dV3D top = Sp3dV3D(0, r, 0);
     List<Sp3dV3D> vertices = [];
     // 回転軸
-    final Sp3dV3D longitude_axis = Sp3dV3D(1, 0, 0);
-    final Sp3dV3D latitude_axis = Sp3dV3D(0, -1, 0);
+    final Sp3dV3D longitudeAxis = Sp3dV3D(1, 0, 0);
+    final Sp3dV3D latitudeAxis = Sp3dV3D(0, -1, 0);
     // 回転角
-    final double rotate_h = (h_theta / y_fragments) * _to_radian;
-    final double rotate_w = (w_theta / x_fragments) * _to_radian * -1;
-    for (int i = 1; i < y_fragments; i++) {
-      Sp3dV3D p = top.deep_copy();
-      p.rotate(longitude_axis, rotate_h * i);
-      for (int j = 0; j <= x_fragments; j++) {
-        vertices.add(p.rotated(latitude_axis, rotate_w * j));
+    final double rotateH = (hTheta / yFragments) * _toRadian;
+    final double rotateW = (wTheta / xFragments) * _toRadian * -1;
+    for (int i = 1; i < yFragments; i++) {
+      Sp3dV3D p = top.deepCopy();
+      p.rotate(longitudeAxis, rotateH * i);
+      for (int j = 0; j <= xFragments; j++) {
+        vertices.add(p.rotated(latitudeAxis, rotateW * j));
       }
     }
     vertices.add(top);
@@ -499,41 +493,41 @@ class Util_Sp3dGeometry {
   /// 回転したい場合はSp3dObjの機能を使用してください。
   ///
   /// * [r] : radius.
-  /// * [x_fragments] : split of sphere surface x axis.
-  /// * [y_fragments] : split of sphere surface y axis.
-  /// * [w_theta] : The angle of how much to generate in the latitude direction. It is a sphere at 360. The range is 1-360 degrees.
-  /// * [h_theta] : The angle of how far to generate in the longitude direction. It is a sphere at 180. The range is 1-180 degrees. When lowered, it becomes a shape close to a cone.
-  /// * [is_closed] : If true, close the side. otherwise open.
+  /// * [xFragments] : split of sphere surface x axis.
+  /// * [yFragments] : split of sphere surface y axis.
+  /// * [wTheta] : The angle of how much to generate in the latitude direction. It is a sphere at 360. The range is 1-360 degrees.
+  /// * [hTheta] : The angle of how far to generate in the longitude direction. It is a sphere at 180. The range is 1-180 degrees. When lowered, it becomes a shape close to a cone.
+  /// * [isClosed] : If true, close the side. otherwise open.
   /// * [material] : face material
   ///
   /// Returns 3d sphere obj. e.g. The coordinates are [top, lon1*lat1, lon1*lat2, lon2*lat1..., bottom].
   /// When closing, the vertices of the divided lines passing through the center are added.
   static Sp3dObj sphere(double r,
-      {int x_fragments = 8,
-        int y_fragments = 8,
-        double w_theta = 360,
-        double h_theta = 180,
-        bool is_closed = true,
-        Sp3dMaterial? material}) {
+      {int xFragments = 8,
+      int yFragments = 8,
+      double wTheta = 360,
+      double hTheta = 180,
+      bool isClosed = true,
+      Sp3dMaterial? material}) {
     final List<Sp3dV3D> vertices =
-    _sphere_v3d(r, x_fragments, y_fragments, w_theta, h_theta);
-    final List<int> indexes = _get_indexes(vertices, 0);
+        _sphereV3d(r, xFragments, yFragments, wTheta, hTheta);
+    final List<int> indexes = _getIndexes(vertices, 0);
     List<Sp3dFragment> frags = [];
     // 上の頂点
     List<Sp3dFace> faces = [];
-    int top_index = indexes[indexes.length - 2];
-    for (int j = 0; j < x_fragments; j++) {
-      faces.add(Sp3dFace([top_index, indexes[j], indexes[(j + 1)]], 0));
+    int topIndex = indexes[indexes.length - 2];
+    for (int j = 0; j < xFragments; j++) {
+      faces.add(Sp3dFace([topIndex, indexes[j], indexes[(j + 1)]], 0));
     }
     // 中間のFace
     // 点の間がx個で、点は+1個ある。
-    int dot = x_fragments + 1;
-    for (int i = 0; i < y_fragments - 2; i++) {
-      int h_index = i * dot;
-      int hn_index = (i + 1) * dot;
-      for (int j = 0; j < x_fragments; j++) {
-        int lt = h_index + j;
-        int lb = hn_index + j;
+    int dot = xFragments + 1;
+    for (int i = 0; i < yFragments - 2; i++) {
+      int hIndex = i * dot;
+      int hnIndex = (i + 1) * dot;
+      for (int j = 0; j < xFragments; j++) {
+        int lt = hIndex + j;
+        int lb = hnIndex + j;
         int rb = lb + 1;
         int rt = lt + 1;
         faces.add(Sp3dFace([
@@ -545,19 +539,19 @@ class Util_Sp3dGeometry {
       }
     }
     // 下の頂点
-    int bottom_index = indexes[indexes.length - 1];
-    int bottom_base = indexes.length - 3 - x_fragments;
-    for (int j = 0; j < x_fragments; j++) {
-      int now = bottom_base + j;
-      faces.add(Sp3dFace([bottom_index, indexes[now + 1], indexes[now]], 0));
+    int bottomIndex = indexes[indexes.length - 1];
+    int bottomBase = indexes.length - 3 - xFragments;
+    for (int j = 0; j < xFragments; j++) {
+      int now = bottomBase + j;
+      faces.add(Sp3dFace([bottomIndex, indexes[now + 1], indexes[now]], 0));
     }
     // 閉じる場合
-    if (is_closed) {
+    if (isClosed) {
       // 中心を通る線を引く
       // 追加分のインデックス
       List<int> appended = [];
-      for (int i = 0; i < y_fragments - 1; i++) {
-        vertices.add(vertices[i * dot].deep_copy()
+      for (int i = 0; i < yFragments - 1; i++) {
+        vertices.add(vertices[i * dot].deepCopy()
           ..x = 0
           ..z = 0);
         indexes.add(vertices.length - 1);
@@ -565,34 +559,33 @@ class Util_Sp3dGeometry {
       }
       // 垂直方向毎に2面ずつ閉じる必要がある。また、上下の頂点部分のみ三角形。
       // 上
-      faces.add(Sp3dFace([indexes[top_index], appended[0], indexes[0]], 0));
-      faces.add(
-          Sp3dFace([indexes[top_index], indexes[dot - 1], appended[0]], 0));
+      faces.add(Sp3dFace([indexes[topIndex], appended[0], indexes[0]], 0));
+      faces
+          .add(Sp3dFace([indexes[topIndex], indexes[dot - 1], appended[0]], 0));
       // 中間
-      for (int i = 0; i < y_fragments - 2; i++) {
-        int now_s = i * dot;
-        int next_s = (i + 1) * dot;
-        int next_last = (i + 2) * dot - 1;
+      for (int i = 0; i < yFragments - 2; i++) {
+        int nowS = i * dot;
+        int nextS = (i + 1) * dot;
+        int nextLast = (i + 2) * dot - 1;
         faces.add(Sp3dFace(
-            [appended[i], appended[i + 1], indexes[next_s], indexes[now_s]],
-            0));
+            [appended[i], appended[i + 1], indexes[nextS], indexes[nowS]], 0));
         faces.add(Sp3dFace([
           appended[i],
-          indexes[next_s - 1],
-          indexes[next_last],
+          indexes[nextS - 1],
+          indexes[nextLast],
           appended[i + 1]
         ], 0));
       }
       // 下
       faces.add(Sp3dFace([
-        indexes[bottom_index],
-        indexes[dot * (y_fragments - 2)],
+        indexes[bottomIndex],
+        indexes[dot * (yFragments - 2)],
         appended.last
       ], 0));
       faces.add(Sp3dFace([
-        indexes[bottom_index],
+        indexes[bottomIndex],
         appended.last,
-        indexes[dot * (y_fragments - 1) - 1]
+        indexes[dot * (yFragments - 1) - 1]
       ], 0));
     }
     frags.add(Sp3dFragment(false, faces, 0, null));
@@ -602,7 +595,7 @@ class Util_Sp3dGeometry {
         vertices,
         frags,
         [
-          material != null ? material : F_Sp3dMaterial.grey,
+          material != null ? material : FSp3dMaterial.grey,
         ],
         [],
         null);
@@ -618,50 +611,50 @@ class Util_Sp3dGeometry {
   ///
   /// * [r] : radius.
   /// * [length] : capsule length.
-  /// * [x_fragments] : split of sphere surface x axis.
-  /// * [y_fragments] : split of sphere surface y axis.
-  /// * [w_theta] : The angle of how much to generate in the latitude direction. It is a sphere at 360. The range is 1-360 degrees.
+  /// * [xFragments] : split of sphere surface x axis.
+  /// * [yFragments] : split of sphere surface y axis.
+  /// * [wTheta] : The angle of how much to generate in the latitude direction. It is a sphere at 360. The range is 1-360 degrees.
   ///
   /// Returns 3d capsule vertex. e.g. The coordinates are [top of[lon1*lat1, lon1*lat2, lon2*lat1..., edge], end of[...]].
-  static List<List<Sp3dV3D>> _capsule_v3d(double r, double length,
-      int x_fragments, int y_fragments, double w_theta) {
+  static List<List<Sp3dV3D>> _capsuleV3d(
+      double r, double length, int xFragments, int yFragments, double wTheta) {
     final Sp3dV3D top = Sp3dV3D(0, r, 0);
-    List<Sp3dV3D> top_vertices = [];
+    List<Sp3dV3D> topVertices = [];
     // 回転軸
-    final Sp3dV3D longitude_axis = Sp3dV3D(1, 0, 0);
-    final Sp3dV3D latitude_axis = Sp3dV3D(0, -1, 0);
+    final Sp3dV3D longitudeAxis = Sp3dV3D(1, 0, 0);
+    final Sp3dV3D latitudeAxis = Sp3dV3D(0, -1, 0);
     // 回転角
-    final double rotate_h = (90 / y_fragments) * _to_radian;
-    final double rotate_w = (w_theta / x_fragments) * _to_radian * -1;
-    for (int i = 1; i < y_fragments; i++) {
-      Sp3dV3D p = top.deep_copy();
-      p.rotate(longitude_axis, rotate_h * i);
-      for (int j = 0; j <= x_fragments; j++) {
-        top_vertices.add(p.rotated(latitude_axis, rotate_w * j));
+    final double rotateH = (90 / yFragments) * _toRadian;
+    final double rotateW = (wTheta / xFragments) * _toRadian * -1;
+    for (int i = 1; i < yFragments; i++) {
+      Sp3dV3D p = top.deepCopy();
+      p.rotate(longitudeAxis, rotateH * i);
+      for (int j = 0; j <= xFragments; j++) {
+        topVertices.add(p.rotated(latitudeAxis, rotateW * j));
       }
     }
-    top_vertices.add(top);
-    final Sp3dV3D r_longitude_axis = Sp3dV3D(-1, 0, 0);
+    topVertices.add(top);
+    final Sp3dV3D rLongitudeAxis = Sp3dV3D(-1, 0, 0);
     final Sp3dV3D bottom = Sp3dV3D(0, -r, 0);
-    List<Sp3dV3D> bottom_vertices = [];
-    for (int i = 1; i < y_fragments; i++) {
-      Sp3dV3D p = bottom.deep_copy();
-      p.rotate(r_longitude_axis, rotate_h * i);
-      for (int j = 0; j <= x_fragments; j++) {
-        bottom_vertices.add(p.rotated(latitude_axis, rotate_w * j));
+    List<Sp3dV3D> bottomVertices = [];
+    for (int i = 1; i < yFragments; i++) {
+      Sp3dV3D p = bottom.deepCopy();
+      p.rotate(rLongitudeAxis, rotateH * i);
+      for (int j = 0; j <= xFragments; j++) {
+        bottomVertices.add(p.rotated(latitudeAxis, rotateW * j));
       }
     }
-    bottom_vertices.add(bottom);
+    bottomVertices.add(bottom);
     // 反転して指定距離分遠くにもう片方の半球を生成する
-    final Sp3dV3D shift_zero = Sp3dV3D(0, -r, 0);
-    final Sp3dV3D shift_len = Sp3dV3D(0, r - length, 0);
-    for (Sp3dV3D i in top_vertices) {
-      i.add(shift_zero);
+    final Sp3dV3D shiftZero = Sp3dV3D(0, -r, 0);
+    final Sp3dV3D shiftLen = Sp3dV3D(0, r - length, 0);
+    for (Sp3dV3D i in topVertices) {
+      i.add(shiftZero);
     }
-    for (Sp3dV3D i in bottom_vertices) {
-      i.add(shift_len);
+    for (Sp3dV3D i in bottomVertices) {
+      i.add(shiftLen);
     }
-    return [top_vertices, bottom_vertices];
+    return [topVertices, bottomVertices];
   }
 
   /// (en)Generates a capsule extending in the z direction with respect the (0,0,0) point.
@@ -674,165 +667,165 @@ class Util_Sp3dGeometry {
   ///
   /// * [r] : edge sphere radius.
   /// * [length] : capsule length.
-  /// * [x_fragments] : split of sphere surface x axis.
-  /// * [y_fragments] : split of sphere surface y axis.
-  /// * [w_theta] : The angle of how much to generate in the latitude direction. It is a sphere at 360. The range is 1-360 degrees.
-  /// * [is_closed] : If true, close the side. otherwise open.
+  /// * [xFragments] : split of sphere surface x axis.
+  /// * [yFragments] : split of sphere surface y axis.
+  /// * [wTheta] : The angle of how much to generate in the latitude direction. It is a sphere at 360. The range is 1-360 degrees.
+  /// * [isClosed] : If true, close the side. otherwise open.
   /// * [material] : face material
   ///
   /// Returns 3d capsule obj.
   /// When closing, the vertices of the divided lines passing through the center are added.
   static Sp3dObj capsule(double r, double length,
-      {int x_fragments = 8,
-        int y_fragments = 4,
-        double w_theta = 360,
-        bool is_closed = true,
-        Sp3dMaterial? material}) {
+      {int xFragments = 8,
+      int yFragments = 4,
+      double wTheta = 360,
+      bool isClosed = true,
+      Sp3dMaterial? material}) {
     final List<List<Sp3dV3D>> edges =
-    _capsule_v3d(r, length, x_fragments, y_fragments, w_theta);
+        _capsuleV3d(r, length, xFragments, yFragments, wTheta);
     final List<Sp3dV3D> vertices = _serialize(edges);
-    final List<int> indexes = _get_indexes(vertices, 0);
-    final List<int> top_indexes = _get_indexes(edges[0], 0);
-    final List<int> end_indexes = _get_indexes(edges[1], top_indexes.length);
+    final List<int> indexes = _getIndexes(vertices, 0);
+    final List<int> topIndexes = _getIndexes(edges[0], 0);
+    final List<int> endIndexes = _getIndexes(edges[1], topIndexes.length);
     List<Sp3dFragment> frags = [];
     // 上の頂点
     List<Sp3dFace> faces = [];
-    int top_index = top_indexes[top_indexes.length - 1];
-    for (int j = 0; j < x_fragments; j++) {
-      faces.add(Sp3dFace([top_index, top_indexes[j], top_indexes[(j + 1)]], 0));
+    int topIndex = topIndexes[topIndexes.length - 1];
+    for (int j = 0; j < xFragments; j++) {
+      faces.add(Sp3dFace([topIndex, topIndexes[j], topIndexes[(j + 1)]], 0));
     }
     // 上のエッジFace
     // 点の間がx個で、点は+1個ある。
-    int dot = x_fragments + 1;
-    for (int i = 0; i < y_fragments - 2; i++) {
-      int h_index = i * dot;
-      int hn_index = (i + 1) * dot;
-      for (int j = 0; j < x_fragments; j++) {
-        int lt = h_index + j;
-        int lb = hn_index + j;
+    int dot = xFragments + 1;
+    for (int i = 0; i < yFragments - 2; i++) {
+      int hIndex = i * dot;
+      int hnIndex = (i + 1) * dot;
+      for (int j = 0; j < xFragments; j++) {
+        int lt = hIndex + j;
+        int lb = hnIndex + j;
         int rb = lb + 1;
         int rt = lt + 1;
         faces.add(Sp3dFace([
-          top_indexes[lt],
-          top_indexes[lb],
-          top_indexes[rb],
-          top_indexes[rt],
+          topIndexes[lt],
+          topIndexes[lb],
+          topIndexes[rb],
+          topIndexes[rt],
         ], 0));
       }
     }
     // 下の頂点
-    int end_index = end_indexes[end_indexes.length - 1];
-    for (int j = 0; j < x_fragments; j++) {
-      faces.add(Sp3dFace([end_index, end_indexes[(j + 1)], end_indexes[j]], 0));
+    int endIndex = endIndexes[endIndexes.length - 1];
+    for (int j = 0; j < xFragments; j++) {
+      faces.add(Sp3dFace([endIndex, endIndexes[(j + 1)], endIndexes[j]], 0));
     }
     // 下のエッジFace
-    for (int i = 0; i < y_fragments - 2; i++) {
-      int h_index = i * dot;
-      int hn_index = (i + 1) * dot;
-      for (int j = 0; j < x_fragments; j++) {
-        int lt = h_index + j;
-        int lb = hn_index + j;
+    for (int i = 0; i < yFragments - 2; i++) {
+      int hIndex = i * dot;
+      int hnIndex = (i + 1) * dot;
+      for (int j = 0; j < xFragments; j++) {
+        int lt = hIndex + j;
+        int lb = hnIndex + j;
         int rb = lb + 1;
         int rt = lt + 1;
         faces.add(Sp3dFace([
-          end_indexes[rt],
-          end_indexes[rb],
-          end_indexes[lb],
-          end_indexes[lt],
+          endIndexes[rt],
+          endIndexes[rb],
+          endIndexes[lb],
+          endIndexes[lt],
         ], 0));
       }
     }
     // 下と上のエッジを繋ぐ
-    int hn_index = (y_fragments - 2) * dot;
-    for (int j = 0; j < x_fragments; j++) {
-      int lb = hn_index + j;
+    int hnIndex = (yFragments - 2) * dot;
+    for (int j = 0; j < xFragments; j++) {
+      int lb = hnIndex + j;
       int rb = lb + 1;
       faces.add(Sp3dFace([
-        top_indexes[lb],
-        end_indexes[lb],
-        end_indexes[rb],
-        top_indexes[rb],
+        topIndexes[lb],
+        endIndexes[lb],
+        endIndexes[rb],
+        topIndexes[rb],
       ], 0));
     }
     // 閉じる場合
-    if (is_closed) {
+    if (isClosed) {
       // 中心を通る線を引く
       // 追加分のインデックス
-      List<int> top_appended = [];
-      List<int> end_appended = [];
-      for (int i = 0; i < y_fragments - 1; i++) {
-        vertices.add(vertices[top_indexes[i * dot]].deep_copy()
+      List<int> topAppended = [];
+      List<int> endAppended = [];
+      for (int i = 0; i < yFragments - 1; i++) {
+        vertices.add(vertices[topIndexes[i * dot]].deepCopy()
           ..x = 0
           ..z = 0);
-        top_indexes.add(vertices.length - 1);
-        indexes.add(top_indexes.last);
-        top_appended.add(indexes.last);
+        topIndexes.add(vertices.length - 1);
+        indexes.add(topIndexes.last);
+        topAppended.add(indexes.last);
       }
-      for (int i = 0; i < y_fragments - 1; i++) {
-        vertices.add(vertices[end_indexes[i * dot]].deep_copy()
+      for (int i = 0; i < yFragments - 1; i++) {
+        vertices.add(vertices[endIndexes[i * dot]].deepCopy()
           ..x = 0
           ..z = 0);
-        top_indexes.add(vertices.length - 1);
-        indexes.add(top_indexes.last);
-        end_appended.add(indexes.last);
+        topIndexes.add(vertices.length - 1);
+        indexes.add(topIndexes.last);
+        endAppended.add(indexes.last);
       }
       // 垂直方向毎に2面ずつ閉じる必要がある。また、上下の頂点部分のみ三角形。
       // 上
-      faces.add(
-          Sp3dFace([indexes[top_index], top_appended[0], top_indexes[0]], 0));
+      faces
+          .add(Sp3dFace([indexes[topIndex], topAppended[0], topIndexes[0]], 0));
       faces.add(Sp3dFace(
-          [indexes[top_index], top_indexes[dot - 1], top_appended[0]], 0));
-      for (int i = 0; i < y_fragments - 2; i++) {
-        int now_s = i * dot;
-        int next_s = (i + 1) * dot;
-        int next_last = (i + 2) * dot - 1;
+          [indexes[topIndex], topIndexes[dot - 1], topAppended[0]], 0));
+      for (int i = 0; i < yFragments - 2; i++) {
+        int nowS = i * dot;
+        int nextS = (i + 1) * dot;
+        int nextLast = (i + 2) * dot - 1;
         faces.add(Sp3dFace([
-          top_appended[i],
-          top_appended[i + 1],
-          top_indexes[next_s],
-          top_indexes[now_s]
+          topAppended[i],
+          topAppended[i + 1],
+          topIndexes[nextS],
+          topIndexes[nowS]
         ], 0));
         faces.add(Sp3dFace([
-          top_appended[i],
-          top_indexes[next_s - 1],
-          top_indexes[next_last],
-          top_appended[i + 1]
+          topAppended[i],
+          topIndexes[nextS - 1],
+          topIndexes[nextLast],
+          topAppended[i + 1]
         ], 0));
       }
       // 下
-      faces.add(
-          Sp3dFace([indexes[end_index], end_indexes[0], end_appended[0]], 0));
+      faces
+          .add(Sp3dFace([indexes[endIndex], endIndexes[0], endAppended[0]], 0));
       faces.add(Sp3dFace(
-          [indexes[end_index], end_appended[0], end_indexes[dot - 1]], 0));
-      for (int i = 0; i < y_fragments - 2; i++) {
-        int now_s = i * dot;
-        int next_s = (i + 1) * dot;
-        int next_last = (i + 2) * dot - 1;
+          [indexes[endIndex], endAppended[0], endIndexes[dot - 1]], 0));
+      for (int i = 0; i < yFragments - 2; i++) {
+        int nowS = i * dot;
+        int nextS = (i + 1) * dot;
+        int nextLast = (i + 2) * dot - 1;
         faces.add(Sp3dFace([
-          end_indexes[now_s],
-          end_indexes[next_s],
-          end_appended[i + 1],
-          end_appended[i]
+          endIndexes[nowS],
+          endIndexes[nextS],
+          endAppended[i + 1],
+          endAppended[i]
         ], 0));
         faces.add(Sp3dFace([
-          end_appended[i + 1],
-          end_indexes[next_last],
-          end_indexes[next_s - 1],
-          end_appended[i],
+          endAppended[i + 1],
+          endIndexes[nextLast],
+          endIndexes[nextS - 1],
+          endAppended[i],
         ], 0));
       }
       // 下と上の接続部分
       faces.add(Sp3dFace([
-        top_appended.last,
-        end_appended.last,
-        end_indexes[end_indexes.length - 1 - dot],
-        top_indexes[(y_fragments - 2) * dot],
+        topAppended.last,
+        endAppended.last,
+        endIndexes[endIndexes.length - 1 - dot],
+        topIndexes[(yFragments - 2) * dot],
       ], 0));
       faces.add(Sp3dFace([
-        top_appended.last,
-        top_indexes[(y_fragments - 1) * dot - 1],
-        end_indexes[(y_fragments - 1) * dot - 1],
-        end_appended.last,
+        topAppended.last,
+        topIndexes[(yFragments - 1) * dot - 1],
+        endIndexes[(yFragments - 1) * dot - 1],
+        endAppended.last,
       ], 0));
     }
     frags.add(Sp3dFragment(false, faces, 0, null));
@@ -842,10 +835,9 @@ class Util_Sp3dGeometry {
         vertices,
         frags,
         [
-          material != null ? material : F_Sp3dMaterial.grey,
+          material != null ? material : FSp3dMaterial.grey,
         ],
         [],
         null);
   }
-
 }

@@ -1,3 +1,9 @@
+## 2.0.0
+
+* Changed Class name and member name to lower camel case.
+* Separated the Japanese README file.
+* Added NonWire fields to FSp3dMaterial class.
+
 ## 1.0.0
 
 * Updates associated with base library updates.
