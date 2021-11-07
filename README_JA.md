@@ -1,129 +1,118 @@
-# simple_3d
+# util_simple_3d
 
 日本語版の解説です。
 
 ## 概要
-このパッケージはSimple 3D Formatの実用的なFlutter(Dart)実装です。  
-Simple 3D Formatは、3次元オブジェクトを専門家以外でも手軽に扱えるようにするためのファイル・フォーマットです。  
-このフォーマットで出力されたファイルは拡張子.sp3dを持ち、内部クラスがJSONに変換されます。１つのオブジェクトに関する全てのデータが１つのファイル内に含まれています。
-この仕様は様々な用途に使用できるように複雑さを最小限に抑え、かつ簡単にテキストエディタで内容が確認できることを目的としています。  
-科学の為に作られたので、他のジャンルで使いにくい可能性があります。  
-科学の発展のため、利権や争いなどに影響されずに利用できることを目指しています。
+このパッケージはSp3dObj（simple_3d package）用のユーティリティのセットです。  
+現在、簡単にジオメトリを生成出来るユーティリティや、マテリアルの簡易的なセットが含まれています。
 
-## 利用方法
-### クイックスタート
-Sp3dObjのレンダリングのためのパッケージを用意しています。  
-下記のパッケージを利用すると、より簡単にご利用になれます。  
-利用方法はsimple_3d_rendererパッケージをご覧ください。  
+[simple_3d package](https://pub.dev/packages/simple_3d)
 
-[simple_3d_renderer](https://pub.dev/packages/simple_3d_renderer)  
-[util_simple_3d](https://pub.dev/packages/util_simple_3d)
+## 使い方
+### ジオメトリの作成
+```dart
+import 'package:simple_3d/simple_3d.dart';
+import 'package:util_simple_3d/util_sp3d_geometry.dart';
 
-### データ作成
-```dart
-final sp3dObj = Sp3dObj(
-    "1",
-    "test",
-    [Sp3dV3D(0, 0, 0)],
-    [
-      Sp3dFragment(
-          true,
-          [
-            Sp3dFace([0], 0)
-          ],
-          1,
-          null)
-    ],
-    [
-      Sp3dMaterial(Color.fromARGB(255, 0, 255, 0), true, 1, Color.fromARGB(255, 0, 255, 0))
-    ],
-    [],
-    null);
+Sp3dObj obj = UtilSp3dGeometry.capsule(50, 250);
 ```
-### オブジェクトの操作例
+
+### 標準マテリアルの適用方法
 ```dart
-// 移動
-sp3dObj.move(Sp3dV3D(1,0,0));
-// 回転
-sp3dObj.rotate(Sp3dV3D(0,1,0),45*pi/180);
-// 頂点の操作
-// Sp3dV3Dの機能を使うと、他にも様々なことが出来ます。
-sp3dObj.vertices[0] += Sp3dV3D(1,0,0);
+import 'package:simple_3d/simple_3d.dart';
+import 'package:util_simple_3d/f_sp3d_material.dart';
+
+Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
+obj.materials.add(FSp3dMaterial.green.deepCopy());
+obj.fragments[0].faces[0].materialIndex=1;
 ```
-### 保存用の変換
+
+## 利用出来るジオメトリのタイプ
+### Tile
 ```dart
-final sp3dObjDict = sp3dObj.toDict();
+Sp3dObj obj = UtilSp3dGeometry.tile(200, 200, 4, 4);
+obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
-### 復元
+![Tile](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/tile_sample1.png "Tile")
+### Cube
 ```dart
-final restored = Sp3dObj.fromDict(sp3dObjDict);
+Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
+obj.materials.add(FSp3dMaterial.green.deepCopy());
+obj.fragments[0].faces[0].materialIndex=1;
+obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 0, 255);
+obj.rotate(Sp3dV3D(1,1,0).nor(), 30*3.14/180);
 ```
+![Cube](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/cube_sample1.png "Cube")
+### Circle
+```dart
+Sp3dObj obj = UtilSp3dGeometry.circle(100, fragments: 20);
+obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
+```
+![Circle](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/circle_sample1.png "Circle")
+### Cone
+```dart
+Sp3dObj obj = UtilSp3dGeometry.cone(100, 200);
+obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
+obj.rotate(Sp3dV3D(1, 0, 0), -100*3.14/180);
+obj.move(Sp3dV3D(0, -100, 0));
+```
+![Cone](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/cone_sample1.png "Cone")
+### Pillar
+```dart
+Sp3dObj obj = UtilSp3dGeometry.pillar(50, 50, 200);
+obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
+obj.rotate(Sp3dV3D(1, 0, 0), -120*3.14/180);
+obj.move(Sp3dV3D(0, -100, 0));
+```
+![Pillar](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/pillar_sample1.png "Pillar")
+### Sphere
+```dart
+Sp3dObj obj = UtilSp3dGeometry.sphere(100);
+obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
+```
+![Sphere](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/sphere_sample1.png "Sphere")
+### Capsule
+```dart
+Sp3dObj obj = UtilSp3dGeometry.capsule(50,200);
+obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
+obj.move(Sp3dV3D(0, 100, 0));
+```
+![Capsule](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/capsule_sample1.png "Capsule")
+### Wire frame
+```dart
+Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
+obj.materials.add(FSp3dMaterial.greenWire.deepCopy());
+obj.fragments[0].faces[0].materialIndex = 1;
+obj.materials[0] = FSp3dMaterial.blueWire.deepCopy();
+obj.rotate(Sp3dV3D(-0.2,0.5,0).nor(), 15*3.14/180);
+```
+![Wire frame](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/wire_frame_sample1.png "Wire frame")
 
 ## サポート
 もし何らかの理由で有償のサポートが必要な場合は私の会社に問い合わせてください。  
 このパッケージは私が個人で開発していますが、会社経由でサポートできる場合があります。  
 [合同会社シンプルアプリ](https://simpleappli.com/index.html)  
 
-## フォーマット名
-Simple 3D Format
+## 今後のアップデートなどについて
+今後、いくつかのジオメトリが追加される可能性があります。
 
-## 拡張子
-.sp3d
-
-## MIME Type ( 仮 )
-model/x.sp3d
-
-## このオブジェクトが有用なもの
-科学（例えば物理計算）や簡単なゲームなどに向いています。
-
-## このオブジェクトが有用でないもの
-高度なグラフィックを必要とするものには向いていません。
-
-## 内部構造 ( デコードされた状態 )
-- Sp3dObj
-    - id: String?
-    - name: String?
-    - vertices: List
-        - v: Sp3dV3D
-    - fragments: List
-        - fragment: Sp3dFragment
-            - isParticle: bool.
-            - faces: List, 面の定義です。三角メッシュまたは四角メッシュを表します。
-                - face: Sp3dFace
-                    - vertexIndexList: List, 頂点のインデックスリストです. 左上から逆時計回りで定義します。
-                        - index: int
-                    - materialIndex: int?
-                - r: double, particleの場合の半径です。
-                - option: Map<String, dynamic>, アプリ毎に拡張可能なオプション属性です。ただし、JSON化出来るパラメータのみ入れられます。
-    - materials: List
-        - material: Sp3dMaterial
-            - bg: Color, argb.
-            - isFill: bool, falseの場合線だけを表示します。
-            - strokeWidth: double
-            - strokeColor: Color, argb
-            - imageIndex: int?, nullでは無い時、指定された画像でfaceを塗りつぶします。
-            - textureCoordinates: List, ３点、又は６点（四角の場合、三角形２つで指定します）での、画像の切り出し位置の指定です。 
-            - option: Map<String, dynamic>, アプリ毎に拡張可能なオプション属性です。ただし、JSON化出来るパラメータのみ入れられます。
-    - images: list
-        - image: Uint8List, png data.
-    - option: Map<String, dynamic>, アプリ毎に拡張可能なオプション属性です。ただし、JSON化出来るパラメータのみ入れられます.
-    
-## パラメータのメモ
-多数の原子の計算にSp3dObjを使用する場合は、isParticleフラグとr（半径）の使用を検討してください。  
-各原子は計算または保存時に1つの頂点を持ち、画面上に描画する場合にのみUtil_Sp3dGeometryなどを使用して球を描画することが出来ます。（つまり、描画の時には新しいSp3dObjを作ります）。  
+## このパッケージ特有のネーミングルールについて
+ユーティリティは接頭語に"Util"がつきます。  
+静的なフィールド定義ファイルは接頭語に"F"がつきます。  
+これらはIDEから簡単に呼び出すために設定されています。
 
 ## バージョン管理について
-バージョン3.1.0以降において以下のようになっています。  
 それぞれ、Cの部分が変更されます。
-- 変数の追加など、以前のファイルの読み込み時に問題が起こったり、ファイルの構造が変わるような変更 
-  - C.X.X
-- メソッドの追加など 
-  - X.C.X
-- 軽微な変更やバグ修正 
-  - X.X.C
-    
+- 変数の追加など、以前のファイルの読み込み時に問題が起こったり、ファイルの構造が変わるような変更
+    - C.X.X
+- メソッドの追加など
+    - X.C.X
+- 軽微な変更やバグ修正
+    - X.X.C
+
 ## ライセンス
-このソフトウェアはMITライセンスの元配布されます。LICENSEファイルの内容をご覧ください。
+(en)This software is released under the MIT License, see LICENSE file.  
+(ja)このソフトウェアはMITライセンスの元配布されます。LICENSEファイルの内容をご覧ください。
 
 ## 著作権表示
 The “Dart” name and “Flutter” name are trademarks of Google LLC.  
