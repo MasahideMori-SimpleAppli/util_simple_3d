@@ -28,12 +28,13 @@ obj.fragments[0].faces[0].materialIndex=1;
 ```
 
 ## 利用出来るジオメトリのタイプ
+## Geometry type
 ### Tile
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.tile(200, 200, 4, 4);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
-![Tile](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/tile_sample1.png "Tile")
+![Tile](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/tile_sample1.png "Tile")
 ### Cube
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
@@ -42,13 +43,13 @@ obj.fragments[0].faces[0].materialIndex=1;
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 0, 255);
 obj.rotate(Sp3dV3D(1,1,0).nor(), 30*3.14/180);
 ```
-![Cube](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/cube_sample1.png "Cube")
+![Cube](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cube_sample1.png "Cube")
 ### Circle
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.circle(100, fragments: 20);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
-![Circle](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/circle_sample1.png "Circle")
+![Circle](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/circle_sample1.png "Circle")
 ### Cone
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.cone(100, 200);
@@ -56,7 +57,7 @@ obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255
 obj.rotate(Sp3dV3D(1, 0, 0), -100*3.14/180);
 obj.move(Sp3dV3D(0, -100, 0));
 ```
-![Cone](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/cone_sample1.png "Cone")
+![Cone](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cone_sample1.png "Cone")
 ### Pillar
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.pillar(50, 50, 200);
@@ -64,20 +65,20 @@ obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255
 obj.rotate(Sp3dV3D(1, 0, 0), -120*3.14/180);
 obj.move(Sp3dV3D(0, -100, 0));
 ```
-![Pillar](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/pillar_sample1.png "Pillar")
+![Pillar](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/pillar_sample1.png "Pillar")
 ### Sphere
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.sphere(100);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
-![Sphere](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/sphere_sample1.png "Sphere")
+![Sphere](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/sphere_sample1.png "Sphere")
 ### Capsule
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.capsule(50,200);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 obj.move(Sp3dV3D(0, 100, 0));
 ```
-![Capsule](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/capsule_sample1.png "Capsule")
+![Capsule](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/capsule_sample1.png "Capsule")
 ### Wire frame
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
@@ -86,7 +87,7 @@ obj.fragments[0].faces[0].materialIndex = 1;
 obj.materials[0] = FSp3dMaterial.blueWire.deepCopy();
 obj.rotate(Sp3dV3D(-0.2,0.5,0).nor(), 15*3.14/180);
 ```
-![Wire frame](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/UtilSp3dGeometry/wire_frame_sample1.png "Wire frame")
+![Wire frame](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/wire_frame_sample1.png "Wire frame")
 
 ## サポート
 もし何らかの理由で有償のサポートが必要な場合は私の会社に問い合わせてください。  
