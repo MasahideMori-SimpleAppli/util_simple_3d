@@ -112,8 +112,7 @@ obj.rotate(Sp3dV3D(-0.2,0.5,0).nor(), 15*3.14/180);
     - X.X.C
 
 ## ライセンス
-(en)This software is released under the MIT License, see LICENSE file.  
-(ja)このソフトウェアはMITライセンスの元配布されます。LICENSEファイルの内容をご覧ください。
+このソフトウェアはMITライセンスの元配布されます。LICENSEファイルの内容をご覧ください。
 
 ## 著作権表示
 The “Dart” name and “Flutter” name are trademarks of Google LLC.  
