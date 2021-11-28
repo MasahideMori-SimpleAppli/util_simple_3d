@@ -102,20 +102,12 @@ class UtilSp3dGeometry {
     List<Sp3dFragment> fragments = [];
     int count = 0;
     for (List<Sp3dV3D> face in tile) {
-      fragments.add(Sp3dFragment(
-          false, [Sp3dFace(_getIndexes(face, count), 0)], 0, null));
+      fragments.add(Sp3dFragment([Sp3dFace(_getIndexes(face, count), 0)]));
       count += face.length;
     }
-    return Sp3dObj(
-        "none",
-        "none",
-        serialized,
-        fragments,
-        [
-          material != null ? material : FSp3dMaterial.grey,
-        ],
-        [],
-        null);
+    return Sp3dObj(serialized, fragments, [
+      material != null ? material : FSp3dMaterial.grey,
+    ], []);
   }
 
   /// (en)Generates the coordinates of a rectangular parallelepiped extending in the z direction with respect the (0,0,0) point.
@@ -190,19 +182,12 @@ class UtilSp3dGeometry {
         Sp3dFace([i[5], i[2], i[1], i[6]], 0), // bottom
         Sp3dFace([i[3], i[2], i[5], i[4]], 0), // right
       ];
-      fragments.add(Sp3dFragment(false, faces, 0, null));
+      fragments.add(Sp3dFragment(faces));
       count += i.length;
     }
-    return Sp3dObj(
-        "none",
-        "none",
-        serialized,
-        fragments,
-        [
-          material != null ? material : FSp3dMaterial.grey,
-        ],
-        [],
-        null);
+    return Sp3dObj(serialized, fragments, [
+      material != null ? material : FSp3dMaterial.grey,
+    ], []);
   }
 
   /// (en)Generates the coordinates of a circle centered on the (0,0,0) point.
@@ -259,18 +244,11 @@ class UtilSp3dGeometry {
       List<Sp3dFace> faces = [
         Sp3dFace([indexes[lastIndex], indexes[i], indexes[(i + 1)]], 0)
       ];
-      mFragments.add(Sp3dFragment(false, faces, 0, null));
+      mFragments.add(Sp3dFragment(faces));
     }
-    return Sp3dObj(
-        "none",
-        "none",
-        serialized,
-        mFragments,
-        [
-          material != null ? material : FSp3dMaterial.grey,
-        ],
-        [],
-        null);
+    return Sp3dObj(serialized, mFragments, [
+      material != null ? material : FSp3dMaterial.grey,
+    ], []);
   }
 
   /// (en)Generates a cone extending in the z direction with respect the (0,0,0) point.
@@ -313,37 +291,30 @@ class UtilSp3dGeometry {
         List<Sp3dFace> bottomFaces = [
           Sp3dFace([indexes[bottomIndex], indexes[(i + 1)], indexes[i]], 0)
         ];
-        mFragments.add(Sp3dFragment(false, bottomFaces, 0, null));
+        mFragments.add(Sp3dFragment(bottomFaces));
       }
       // 頂点
       List<Sp3dFace> topFaces = [
         Sp3dFace([indexes[topIndex], indexes[i], indexes[(i + 1)]], 0)
       ];
-      mFragments.add(Sp3dFragment(false, topFaces, 0, null));
+      mFragments.add(Sp3dFragment(topFaces));
     }
     // 始点側と終点側の側面を閉じる。
     if (isClosedSide) {
       List<Sp3dFace> spFaces = [
         Sp3dFace([indexes[topIndex], indexes[bottomIndex], indexes[0]], 0)
       ];
-      mFragments.add(Sp3dFragment(false, spFaces, 0, null));
+      mFragments.add(Sp3dFragment(spFaces));
       List<Sp3dFace> epFaces = [
         Sp3dFace(
             [indexes[topIndex], indexes[bottomIndex - 1], indexes[bottomIndex]],
             0)
       ];
-      mFragments.add(Sp3dFragment(false, epFaces, 0, null));
+      mFragments.add(Sp3dFragment(epFaces));
     }
-    return Sp3dObj(
-        "none",
-        "none",
-        serialized,
-        mFragments,
-        [
-          material != null ? material : FSp3dMaterial.grey,
-        ],
-        [],
-        null);
+    return Sp3dObj(serialized, mFragments, [
+      material != null ? material : FSp3dMaterial.grey,
+    ], []);
   }
 
   /// (en)Generates a pillar extending in the z direction with respect the (0,0,0) point.
@@ -393,7 +364,7 @@ class UtilSp3dGeometry {
         List<Sp3dFace> bottomFaces = [
           Sp3dFace([indexes[bottomIndex], indexes[(i + 1)], indexes[i]], 0)
         ];
-        mFragments.add(Sp3dFragment(false, bottomFaces, 0, null));
+        mFragments.add(Sp3dFragment(bottomFaces));
       }
       // 壁面
       int topI = i + topStart;
@@ -402,13 +373,13 @@ class UtilSp3dGeometry {
             [indexes[topI], indexes[i], indexes[(i + 1)], indexes[(topI + 1)]],
             0)
       ];
-      mFragments.add(Sp3dFragment(false, wallFaces, 0, null));
+      mFragments.add(Sp3dFragment(wallFaces));
       // 頂点
       if (isClosedTop) {
         List<Sp3dFace> topFaces = [
           Sp3dFace([indexes[topIndex], indexes[topI], indexes[(topI + 1)]], 0)
         ];
-        mFragments.add(Sp3dFragment(false, topFaces, 0, null));
+        mFragments.add(Sp3dFragment(topFaces));
       }
     }
     // 始点側と終点側の側面を閉じる。
@@ -421,7 +392,7 @@ class UtilSp3dGeometry {
           indexes[topStart]
         ], 0)
       ];
-      mFragments.add(Sp3dFragment(false, spFaces, 0, null));
+      mFragments.add(Sp3dFragment(spFaces));
       List<Sp3dFace> epFaces = [
         Sp3dFace([
           indexes[topIndex],
@@ -430,18 +401,11 @@ class UtilSp3dGeometry {
           indexes[bottomIndex]
         ], 0)
       ];
-      mFragments.add(Sp3dFragment(false, epFaces, 0, null));
+      mFragments.add(Sp3dFragment(epFaces));
     }
-    return Sp3dObj(
-        "none",
-        "none",
-        btm,
-        mFragments,
-        [
-          material != null ? material : FSp3dMaterial.grey,
-        ],
-        [],
-        null);
+    return Sp3dObj(btm, mFragments, [
+      material != null ? material : FSp3dMaterial.grey,
+    ], []);
   }
 
   /// (en)Generates a sphere centered on the (0,0,0) point.
@@ -588,17 +552,10 @@ class UtilSp3dGeometry {
         indexes[dot * (yFragments - 1) - 1]
       ], 0));
     }
-    frags.add(Sp3dFragment(false, faces, 0, null));
-    return Sp3dObj(
-        "none",
-        "none",
-        vertices,
-        frags,
-        [
-          material != null ? material : FSp3dMaterial.grey,
-        ],
-        [],
-        null);
+    frags.add(Sp3dFragment(faces));
+    return Sp3dObj(vertices, frags, [
+      material != null ? material : FSp3dMaterial.grey,
+    ], []);
   }
 
   /// (en)Generates the coordinates of a capsule extending in the -y direction with respect to the (0,0,0) point.
@@ -828,16 +785,9 @@ class UtilSp3dGeometry {
         endAppended.last,
       ], 0));
     }
-    frags.add(Sp3dFragment(false, faces, 0, null));
-    return Sp3dObj(
-        "none",
-        "none",
-        vertices,
-        frags,
-        [
-          material != null ? material : FSp3dMaterial.grey,
-        ],
-        [],
-        null);
+    frags.add(Sp3dFragment(faces));
+    return Sp3dObj(vertices, frags, [
+      material != null ? material : FSp3dMaterial.grey,
+    ], []);
   }
 }

@@ -1,3 +1,7 @@
+## 3.0.0
+
+* Updates associated with base library updates.
+
 ## 2.0.0
 
 * Changed Class name and member name to lower camel case.
