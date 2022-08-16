@@ -1,3 +1,6 @@
+## 4.0.0
+* Refactored the structure for future development.
+
 ## 3.0.0
 
 * Updates associated with base library updates.

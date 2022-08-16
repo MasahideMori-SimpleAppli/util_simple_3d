@@ -13,7 +13,7 @@ It currently includes utilities that make it easy to generate geometry and a sim
 ### Create Geometry
 ```dart
 import 'package:simple_3d/simple_3d.dart';
-import 'package:util_simple_3d/util_sp3d_geometry.dart';
+import 'package:util_simple_3d/util_simple_3d.dart';
 
 Sp3dObj obj = UtilSp3dGeometry.capsule(50, 250);
 ```
@@ -21,7 +21,7 @@ Sp3dObj obj = UtilSp3dGeometry.capsule(50, 250);
 ### Use Default Material
 ```dart
 import 'package:simple_3d/simple_3d.dart';
-import 'package:util_simple_3d/f_sp3d_material.dart';
+import 'package:util_simple_3d/util_simple_3d.dart';
 
 Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
 obj.materials.add(FSp3dMaterial.green.deepCopy());
@@ -34,7 +34,7 @@ obj.fragments[0].faces[0].materialIndex=1;
 Sp3dObj obj = UtilSp3dGeometry.tile(200, 200, 4, 4);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
-![Tile](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/tile_sample1.png "Tile")
+![Tile](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/tile_sample1.png)
 ### Cube
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
@@ -43,13 +43,13 @@ obj.fragments[0].faces[0].materialIndex=1;
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 0, 255);
 obj.rotate(Sp3dV3D(1,1,0).nor(), 30*3.14/180);
 ```
-![Cube](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cube_sample1.png "Cube")
+![Cube](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cube_sample1.png)
 ### Circle
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.circle(100, fragments: 20);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
-![Circle](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/circle_sample1.png "Circle")
+![Circle](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/circle_sample1.png)
 ### Cone
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.cone(100, 200);
@@ -57,7 +57,7 @@ obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255
 obj.rotate(Sp3dV3D(1, 0, 0), -100*3.14/180);
 obj.move(Sp3dV3D(0, -100, 0));
 ```
-![Cone](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cone_sample1.png "Cone")
+![Cone](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cone_sample1.png)
 ### Pillar
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.pillar(50, 50, 200);
@@ -65,20 +65,20 @@ obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255
 obj.rotate(Sp3dV3D(1, 0, 0), -120*3.14/180);
 obj.move(Sp3dV3D(0, -100, 0));
 ```
-![Pillar](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/pillar_sample1.png "Pillar")
+![Pillar](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/pillar_sample1.png)
 ### Sphere
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.sphere(100);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
-![Sphere](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/sphere_sample1.png "Sphere")
+![Sphere](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/sphere_sample1.png)
 ### Capsule
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.capsule(50,200);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 obj.move(Sp3dV3D(0, 100, 0));
 ```
-![Capsule](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/capsule_sample1.png "Capsule")
+![Capsule](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/capsule_sample1.png)
 ### Wire frame
 ```dart
 Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
@@ -87,10 +87,11 @@ obj.fragments[0].faces[0].materialIndex = 1;
 obj.materials[0] = FSp3dMaterial.blueWire.deepCopy();
 obj.rotate(Sp3dV3D(-0.2,0.5,0).nor(), 15*3.14/180);
 ```
-![Wire frame](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/wire_frame_sample1.png "Wire frame")
+![Wire frame](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/wire_frame_sample1.png)
 
 ## Support
-If you need paid support, please contact my company.  
+If you need paid support for any reason, please contact my company.  
+This package is developed by me personally, but may be supported via the company.  
 [SimpleAppli Inc.](https://simpleappli.com/en/index_en.html)
 
 ## About future development

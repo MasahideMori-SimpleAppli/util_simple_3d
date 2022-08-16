@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:simple_3d/simple_3d.dart';
-import 'package:util_simple_3d/f_sp3d_material.dart';
-import 'package:util_simple_3d/util_sp3d_geometry.dart';
+import 'package:util_simple_3d/util_simple_3d.dart';
 
 void main() {
   test('create geometry', () {
