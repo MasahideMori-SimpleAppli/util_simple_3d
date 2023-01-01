@@ -52,4 +52,9 @@ void main() {
     obj.materials[0] = FSp3dMaterial.blueWire.deepCopy();
     obj.rotate(Sp3dV3D(-0.2, 0.5, 0).nor(), 15 * 3.14 / 180);
   });
+
+  test('create common parts', () {
+    List<Sp3dObj> objs = UtilSp3dCommonParts.coordinateArrows(255);
+    objs.addAll(UtilSp3dCommonParts.worldMeshes(255));
+  });
 }

@@ -10,7 +10,7 @@ import 'f_sp3d_material.dart';
 /// First edition creation date 2021-09-2 20:07:21
 ///
 class UtilSp3dGeometry {
-  static final double _toRadian = pi / 180;
+  static const double _toRadian = pi / 180;
 
   /// (en)Creates and returns a list of list indexes.
   ///
@@ -106,7 +106,7 @@ class UtilSp3dGeometry {
       count += face.length;
     }
     return Sp3dObj(serialized, fragments, [
-      material != null ? material : FSp3dMaterial.grey,
+      material ?? FSp3dMaterial.grey,
     ], []);
   }
 
@@ -186,7 +186,7 @@ class UtilSp3dGeometry {
       count += i.length;
     }
     return Sp3dObj(serialized, fragments, [
-      material != null ? material : FSp3dMaterial.grey,
+      material ?? FSp3dMaterial.grey,
     ], []);
   }
 
@@ -247,7 +247,7 @@ class UtilSp3dGeometry {
       mFragments.add(Sp3dFragment(faces));
     }
     return Sp3dObj(serialized, mFragments, [
-      material != null ? material : FSp3dMaterial.grey,
+      material ?? FSp3dMaterial.grey,
     ], []);
   }
 
@@ -313,7 +313,7 @@ class UtilSp3dGeometry {
       mFragments.add(Sp3dFragment(epFaces));
     }
     return Sp3dObj(serialized, mFragments, [
-      material != null ? material : FSp3dMaterial.grey,
+      material ?? FSp3dMaterial.grey,
     ], []);
   }
 
@@ -404,7 +404,7 @@ class UtilSp3dGeometry {
       mFragments.add(Sp3dFragment(epFaces));
     }
     return Sp3dObj(btm, mFragments, [
-      material != null ? material : FSp3dMaterial.grey,
+      material ?? FSp3dMaterial.grey,
     ], []);
   }
 
@@ -554,7 +554,7 @@ class UtilSp3dGeometry {
     }
     frags.add(Sp3dFragment(faces));
     return Sp3dObj(vertices, frags, [
-      material != null ? material : FSp3dMaterial.grey,
+      material ?? FSp3dMaterial.grey,
     ], []);
   }
 
@@ -787,7 +787,7 @@ class UtilSp3dGeometry {
     }
     frags.add(Sp3dFragment(faces));
     return Sp3dObj(vertices, frags, [
-      material != null ? material : FSp3dMaterial.grey,
+      material ?? FSp3dMaterial.grey,
     ], []);
   }
 }

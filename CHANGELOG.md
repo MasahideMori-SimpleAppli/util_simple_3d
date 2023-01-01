@@ -1,3 +1,6 @@
+## 4.1.0
+* Added UtilSp3dCommonParts class.
+
 ## 4.0.1
 * Updates associated with base library updates.
 

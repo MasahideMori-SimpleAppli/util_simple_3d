@@ -88,6 +88,14 @@ obj.rotate(Sp3dV3D(-0.2,0.5,0).nor(), 15*3.14/180);
 ```
 ![Wire frame](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/wire_frame_sample1.png)
 
+## 利用出来るコモンパーツ
+### 座標系とメッシュの作成
+```dart
+List<Sp3dObj> objs = UtilSp3dCommonParts.coordinateArrows(255);
+objs.addAll(UtilSp3dCommonParts.worldMeshes(255));
+```
+![Coordinate arrows and world meshes](https://raw.githubusercontent.com/MasahideMori-SimpleAppli/simple_3d_images/main/UtilSp3dCommonParts/coordinateArrows_and_worldMeshes.png)
+
 ## サポート
 もし何らかの理由で有償のサポートが必要な場合は私の会社に問い合わせてください。  
 このパッケージは私が個人で開発していますが、会社経由でサポートできる場合があります。  
