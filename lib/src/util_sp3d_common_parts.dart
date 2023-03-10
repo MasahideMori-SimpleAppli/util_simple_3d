@@ -82,6 +82,10 @@ class UtilSp3dCommonParts {
       objList.add(yAxisArrow);
       objList.add(zAxisArrow);
     }
+    // 全てのオブジェクトの描画優先度を-1（背景）にする
+    for (Sp3dObj i in objList) {
+      i.layerNum = -1;
+    }
     return objList;
   }
 
@@ -122,6 +126,10 @@ class UtilSp3dCommonParts {
       objList.add(gridBackFront.reversed());
       objList.add(gridFloorFront.reversed());
       objList.add(gridLeftFront.reversed());
+    }
+    // 全てのオブジェクトの描画優先度を-1（背景）にする
+    for (Sp3dObj i in objList) {
+      i.layerNum = -1;
     }
     return objList;
   }
