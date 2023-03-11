@@ -25,6 +25,8 @@ class UtilSp3dCommonParts {
   /// * [useArrowHead] : If true, If true, add a cone to the tip of the pillar.　Note that the pillar is longer by the arrowhead.
   /// * [arrowHeadR] : The arrow head radius.
   /// * [arrowHeadH] : The arrow head height.
+  /// * [layerNum] : Draw order of objects. If the renderer supports it,
+  /// rendering from smaller this value.
   ///
   /// Returns Sp3dObj list.
   /// If useArrowHead is true, [xAxisPillar, yAxisPillar, zAxisPillar, xAxisArrow, yAxisArrow, zAxisArrow].
@@ -37,7 +39,8 @@ class UtilSp3dCommonParts {
       bool isCube = false,
       bool useArrowHead = true,
       double arrowHeadR = 4,
-      double arrowHeadH = 16}) {
+      double arrowHeadH = 16,
+      int layerNum = -1}) {
     List<Sp3dObj> objList = [];
     // 柱
     if (isCube) {
@@ -82,9 +85,9 @@ class UtilSp3dCommonParts {
       objList.add(yAxisArrow);
       objList.add(zAxisArrow);
     }
-    // 全てのオブジェクトの描画優先度を-1（背景）にする
+    // 全てのオブジェクトの描画優先度を変更する
     for (Sp3dObj i in objList) {
-      i.layerNum = -1;
+      i.layerNum = layerNum;
     }
     return objList;
   }
@@ -99,12 +102,17 @@ class UtilSp3dCommonParts {
   /// * [isTwoSides] :If true, generate a two-sided mesh.
   /// However, if you want to reduce the drawing load,
   /// it may be better to generate a one-sided mesh and set the camera's isAllDrawn parameter to true.
+  /// * [layerNum] : Draw order of objects. If the renderer supports it,
+  /// rendering from smaller this value.
   ///
   /// Returns Sp3dObj list.
   /// If isTwoSides is true, [gridBackFront, gridFloorFront, gridLeftFront, gridBackBack, gridFloorBack, gridLeftBack].
   /// If isTwoSides is false, [gridBackFront, gridFloorFront, gridLeftFront].
   static List<Sp3dObj> worldMeshes(double size,
-      {Sp3dMaterial? material, int split = 5, bool isTwoSides = true}) {
+      {Sp3dMaterial? material,
+      int split = 5,
+      bool isTwoSides = true,
+      int layerNum = -2}) {
     List<Sp3dObj> objList = [];
     // 表面
     Sp3dObj gridBackFront = UtilSp3dGeometry.tile(size, size, split, split,
@@ -127,9 +135,9 @@ class UtilSp3dCommonParts {
       objList.add(gridFloorFront.reversed());
       objList.add(gridLeftFront.reversed());
     }
-    // 全てのオブジェクトの描画優先度を-1（背景）にする
+    // 全てのオブジェクトの描画優先度を変更する
     for (Sp3dObj i in objList) {
-      i.layerNum = -1;
+      i.layerNum = layerNum;
     }
     return objList;
   }
