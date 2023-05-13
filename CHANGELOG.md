@@ -1,3 +1,6 @@
+## 7.0.0
+* Supported Dart 3.
+
 ## 6.0.0
 
 * Updates associated with base library updates.
