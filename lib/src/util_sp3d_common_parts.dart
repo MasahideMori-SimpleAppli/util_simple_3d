@@ -88,6 +88,8 @@ class UtilSp3dCommonParts {
     // 全てのオブジェクトの描画優先度を変更する
     for (Sp3dObj i in objList) {
       i.layerNum = layerNum;
+      // 背景用なのでタッチ計算の対象外にする。
+      i.setIsTouchableFlags(false);
     }
     return objList;
   }
@@ -138,6 +140,8 @@ class UtilSp3dCommonParts {
     // 全てのオブジェクトの描画優先度を変更する
     for (Sp3dObj i in objList) {
       i.layerNum = layerNum;
+      // 背景用なのでタッチ計算の対象外にする。
+      i.setIsTouchableFlags(false);
     }
     return objList;
   }
