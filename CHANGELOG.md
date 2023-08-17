@@ -1,3 +1,7 @@
+## 8.2.0
+
+* Updates associated with base library updates.
+
 ## 8.1.0
 
 * Updates associated with base library updates.
