@@ -1,3 +1,11 @@
+## 8.3.0
+
+* I have refactored and improved the package to make it more convenient to use.
+* Added Sp3dConstantValues class.
+* Added UtilBezier class.
+* Added UtilSp3dList class.
+* Added VRange class.
+
 ## 8.2.0
 
 * Updates associated with base library updates.

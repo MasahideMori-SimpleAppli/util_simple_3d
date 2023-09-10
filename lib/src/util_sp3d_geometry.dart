@@ -1,6 +1,5 @@
 import 'package:simple_3d/simple_3d.dart';
-import 'dart:math';
-import 'f_sp3d_material.dart';
+import '../util_simple_3d.dart';
 
 /// (en)It is a utility related to the three-dimensional structure using sp3d.
 /// (ja)sp3dを使った立体構造に関するユーティリティです。
@@ -10,32 +9,6 @@ import 'f_sp3d_material.dart';
 /// First edition creation date 2021-09-2 20:07:21
 ///
 class UtilSp3dGeometry {
-  static const double _toRadian = pi / 180;
-
-  /// (en)Creates and returns a list of list indexes.
-  ///
-  /// (ja)リストのインデックスのリストを作成して返します。
-  ///
-  /// * [baseIndex] : The value to add to the index.
-  static List<int> _getIndexes(List<dynamic> l, int baseIndex) {
-    List<int> r = [];
-    for (int i = 0; i < l.length; i++) {
-      r.add(i + baseIndex);
-    }
-    return r;
-  }
-
-  /// (en) Return Serialize list.
-  ///
-  /// (ja)直列化したリストを返します。
-  static List<Sp3dV3D> _serialize(List<List<Sp3dV3D>> l) {
-    List<Sp3dV3D> r = [];
-    for (List<Sp3dV3D> i in l) {
-      r.addAll(i);
-    }
-    return r;
-  }
-
   /// (en)Generates the coordinates of a quadrilateral tile with the (0,0,0) point as the center.
   ///
   /// (ja)(0,0,0)点を中心とした四角形タイルの座標を生成します。
@@ -98,11 +71,12 @@ class UtilSp3dGeometry {
   static Sp3dObj tile(double w, double h, int wSplit, int hSplit,
       {Sp3dMaterial? material}) {
     List<List<Sp3dV3D>> tile = _tileV3d(w, h, wSplit, hSplit);
-    List<Sp3dV3D> serialized = _serialize(tile);
+    List<Sp3dV3D> serialized = UtilSp3dList.serialize(tile);
     List<Sp3dFragment> fragments = [];
     int count = 0;
     for (List<Sp3dV3D> face in tile) {
-      fragments.add(Sp3dFragment([Sp3dFace(_getIndexes(face, count), 0)]));
+      fragments.add(
+          Sp3dFragment([Sp3dFace(UtilSp3dList.getIndexes(face, count), 0)]));
       count += face.length;
     }
     return Sp3dObj(serialized, fragments, [
@@ -169,11 +143,11 @@ class UtilSp3dGeometry {
       double w, double h, double d, int wSplit, int hSplit, int dSplit,
       {Sp3dMaterial? material}) {
     List<List<Sp3dV3D>> c = _cubeV3d(w, h, d, wSplit, hSplit, dSplit);
-    List<Sp3dV3D> serialized = _serialize(c);
+    List<Sp3dV3D> serialized = UtilSp3dList.serialize(c);
     List<Sp3dFragment> fragments = [];
     int count = 0;
     for (List<Sp3dV3D> v in c) {
-      List<int> i = _getIndexes(v, count);
+      List<int> i = UtilSp3dList.getIndexes(v, count);
       List<Sp3dFace> faces = [
         Sp3dFace([i[0], i[1], i[2], i[3]], 0), // front
         Sp3dFace([i[4], i[5], i[6], i[7]], 0), // back
@@ -205,7 +179,7 @@ class UtilSp3dGeometry {
   static List<Sp3dV3D> _circleV3d(double r, int fragments,
       {double theta = 360}) {
     // 回転角（逆時計周り）
-    final double radian = theta / fragments * _toRadian;
+    final double radian = theta / fragments * Sp3dConstantValues.toRadian;
     // 始点から終点への軸ベクトルを考える。
     Sp3dV3D norAxis = Sp3dV3D(0, 0, 1);
     // 半径rの回転ベクトル
@@ -237,7 +211,7 @@ class UtilSp3dGeometry {
   static Sp3dObj circle(double r,
       {int fragments = 8, double theta = 360, Sp3dMaterial? material}) {
     List<Sp3dV3D> serialized = _circleV3d(r, fragments, theta: theta);
-    List<int> indexes = _getIndexes(serialized, 0);
+    List<int> indexes = UtilSp3dList.getIndexes(serialized, 0);
     List<Sp3dFragment> mFragments = [];
     final int lastIndex = indexes.length - 1;
     for (int i = 0; i < fragments; i++) {
@@ -278,7 +252,7 @@ class UtilSp3dGeometry {
       bool isClosedSide = true,
       Sp3dMaterial? material}) {
     List<Sp3dV3D> serialized = _circleV3d(r, fragments, theta: theta);
-    List<int> indexes = _getIndexes(serialized, 0);
+    List<int> indexes = UtilSp3dList.getIndexes(serialized, 0);
     // 頂点を追加（底面は追加済み）
     serialized.add(Sp3dV3D(0, 0, h));
     List<Sp3dFragment> mFragments = [];
@@ -355,7 +329,7 @@ class UtilSp3dGeometry {
       i.add(addH);
     }
     btm.addAll(top);
-    List<int> indexes = _getIndexes(btm, 0);
+    List<int> indexes = UtilSp3dList.getIndexes(btm, 0);
     int topIndex = indexes.length - 1;
     List<Sp3dFragment> mFragments = [];
     for (int i = 0; i < fragments; i++) {
@@ -432,8 +406,9 @@ class UtilSp3dGeometry {
     final Sp3dV3D longitudeAxis = Sp3dV3D(1, 0, 0);
     final Sp3dV3D latitudeAxis = Sp3dV3D(0, -1, 0);
     // 回転角
-    final double rotateH = (hTheta / yFragments) * _toRadian;
-    final double rotateW = (wTheta / xFragments) * _toRadian * -1;
+    final double rotateH = (hTheta / yFragments) * Sp3dConstantValues.toRadian;
+    final double rotateW =
+        (wTheta / xFragments) * Sp3dConstantValues.toRadian * -1;
     for (int i = 1; i < yFragments; i++) {
       Sp3dV3D p = top.deepCopy();
       p.rotate(longitudeAxis, rotateH * i);
@@ -475,7 +450,7 @@ class UtilSp3dGeometry {
       Sp3dMaterial? material}) {
     final List<Sp3dV3D> vertices =
         _sphereV3d(r, xFragments, yFragments, wTheta, hTheta);
-    final List<int> indexes = _getIndexes(vertices, 0);
+    final List<int> indexes = UtilSp3dList.getIndexes(vertices, 0);
     List<Sp3dFragment> frags = [];
     // 上の頂点
     List<Sp3dFace> faces = [];
@@ -581,8 +556,9 @@ class UtilSp3dGeometry {
     final Sp3dV3D longitudeAxis = Sp3dV3D(1, 0, 0);
     final Sp3dV3D latitudeAxis = Sp3dV3D(0, -1, 0);
     // 回転角
-    final double rotateH = (90 / yFragments) * _toRadian;
-    final double rotateW = (wTheta / xFragments) * _toRadian * -1;
+    final double rotateH = (90 / yFragments) * Sp3dConstantValues.toRadian;
+    final double rotateW =
+        (wTheta / xFragments) * Sp3dConstantValues.toRadian * -1;
     for (int i = 1; i < yFragments; i++) {
       Sp3dV3D p = top.deepCopy();
       p.rotate(longitudeAxis, rotateH * i);
@@ -640,10 +616,11 @@ class UtilSp3dGeometry {
       Sp3dMaterial? material}) {
     final List<List<Sp3dV3D>> edges =
         _capsuleV3d(r, length, xFragments, yFragments, wTheta);
-    final List<Sp3dV3D> vertices = _serialize(edges);
-    final List<int> indexes = _getIndexes(vertices, 0);
-    final List<int> topIndexes = _getIndexes(edges[0], 0);
-    final List<int> endIndexes = _getIndexes(edges[1], topIndexes.length);
+    final List<Sp3dV3D> vertices = UtilSp3dList.serialize(edges);
+    final List<int> indexes = UtilSp3dList.getIndexes(vertices, 0);
+    final List<int> topIndexes = UtilSp3dList.getIndexes(edges[0], 0);
+    final List<int> endIndexes =
+        UtilSp3dList.getIndexes(edges[1], topIndexes.length);
     List<Sp3dFragment> frags = [];
     // 上の頂点
     List<Sp3dFace> faces = [];
