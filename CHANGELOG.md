@@ -1,3 +1,9 @@
+## 8.4.0
+
+* Changed calculateControlPoint method to public method.
+* Added bezierCurve2 method to UtilBezier class.
+* Fixed the method description of UtilBezier class.
+
 ## 8.3.0
 
 * I have refactored and improved the package to make it more convenient to use.
