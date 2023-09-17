@@ -1,3 +1,7 @@
+## 9.0.0
+
+* Updates associated with base library updates.
+
 ## 8.4.0
 
 * Changed calculateControlPoint method to public method.
