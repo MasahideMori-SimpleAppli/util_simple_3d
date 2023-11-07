@@ -1,3 +1,7 @@
+## 9.1.0
+
+* Added isInRange and isOverlapping method to VRange class.
+
 ## 9.0.0
 
 * Updates associated with base library updates.

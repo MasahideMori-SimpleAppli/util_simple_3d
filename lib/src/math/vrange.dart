@@ -29,4 +29,30 @@ class VRange {
   double getCenterValue() {
     return min + ((max - min) / 2);
   }
+
+  /// (en) Returns true if the specified value is within this range.
+  ///
+  /// (ja) 指定した値がこの範囲の中ならtrueを返します。
+  ///
+  /// * [v] : The target value.
+  ///
+  /// returns : min <= v && v <= max.
+  bool isInRange(double v) {
+    return min <= v && v <= max;
+  }
+
+  /// (en) Returns true if the specified range even partially overlaps this range.
+  ///
+  /// (ja) 指定した範囲がこの範囲と一部でも重なる場合はtrueを返します。
+  ///
+  /// * [other] : The target range.
+  bool isOverlapping(VRange other) {
+    // If the target range [v] is completely before or after this range,
+    // then they do not overlap.
+    if (other.max < min || max < other.min) {
+      return false;
+    }
+    // Otherwise, the ranges overlap.
+    return true;
+  }
 }

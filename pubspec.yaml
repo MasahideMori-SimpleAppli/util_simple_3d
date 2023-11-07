@@ -1,6 +1,6 @@
 name: util_simple_3d
 description: Utility for Sp3dObj. Includes 3D geometry generation utility and more.
-version: 9.0.0
+version: 9.1.0
 repository: https://github.com/MasahideMori-SimpleAppli/util_simple_3d
 
 environment:

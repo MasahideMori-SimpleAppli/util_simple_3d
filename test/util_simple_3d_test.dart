@@ -67,4 +67,32 @@ void main() {
     expect(v[499].equals(Sp3dV3D(1, 1, 0), 0.01), true);
     expect(v[999].equals(Sp3dV3D(2, 0, 0), 0.01), true);
   });
+
+  test('isInRange', () {
+    VRange range = VRange(min: 1, max: 5);
+    expect(range.isInRange(0), false);
+    expect(range.isInRange(1), true);
+    expect(range.isInRange(3), true);
+    expect(range.isInRange(5), true);
+    expect(range.isInRange(6), false);
+  });
+
+  test('isOverlapping', () {
+    VRange range1 = VRange(min: 1, max: 5);
+    VRange range2 = VRange(min: 1, max: 1);
+    VRange range3 = VRange(min: 0, max: 1);
+    VRange range4 = VRange(min: 0, max: 0);
+    VRange range5 = VRange(min: 5, max: 5);
+    VRange range6 = VRange(min: 5, max: 6);
+    VRange range7 = VRange(min: 6, max: 6);
+    VRange range8 = VRange(min: 2, max: 3);
+    expect(range1.isOverlapping(range1), true);
+    expect(range1.isOverlapping(range2), true);
+    expect(range1.isOverlapping(range3), true);
+    expect(range1.isOverlapping(range4), false);
+    expect(range1.isOverlapping(range5), true);
+    expect(range1.isOverlapping(range6), true);
+    expect(range1.isOverlapping(range7), false);
+    expect(range1.isOverlapping(range8), true);
+  });
 }
