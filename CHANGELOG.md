@@ -1,3 +1,7 @@
+## 9.2.0
+
+* Added IntVRange class.
+
 ## 9.1.0
 
 * Added isInRange and isOverlapping method to VRange class.
