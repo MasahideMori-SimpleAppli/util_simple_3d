@@ -1,3 +1,7 @@
+## 9.2.1
+
+* Fixed missing reference to IntVRange class.
+
 ## 9.2.0
 
 * Added IntVRange class.
