@@ -1,3 +1,8 @@
+## 9.3.0
+
+* Added generateList method to IntVRange class and VRange class. 
+* Added UtilSearchValue class.
+
 ## 9.2.1
 
 * Fixed missing reference to IntVRange class.

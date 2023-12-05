@@ -54,4 +54,20 @@ class IntVRange {
     // Otherwise, the ranges overlap.
     return true;
   }
+
+  /// (en) Creates a list within this range with specified steps.
+  ///
+  /// (ja) この範囲内で、指定されたステップでリストを作成します。
+  ///
+  /// * [step] : The list will be created with this number of steps.
+  List<int> generateList(int step) {
+    if (step <= 0) {
+      throw Exception('Step must be greater than or equal to 1.');
+    }
+    List<int> r = [];
+    for (int i = min; i <= max; i += step) {
+      r.add(i);
+    }
+    return r;
+  }
 }

@@ -55,4 +55,23 @@ class VRange {
     // Otherwise, the ranges overlap.
     return true;
   }
+
+  /// (en) Creates a list within this range with specified steps.
+  /// The returned value has min rounded to ceil and max to floor.
+  ///
+  /// (ja) この範囲内で、指定されたステップでリストを作成します。
+  /// 戻り値はminがceilで丸められ、maxはfloorで切り捨てられます。
+  ///
+  /// * [step] : The list will be created with this number of steps.
+  /// Step must be greater than or equal to 1.
+  List<int> generateList(int step) {
+    if (step <= 0) {
+      throw Exception('Step must be greater than or equal to 1.');
+    }
+    List<int> r = [];
+    for (int i = min.ceil(); i <= max.floor(); i += step) {
+      r.add(i);
+    }
+    return r;
+  }
 }

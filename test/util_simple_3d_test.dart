@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:simple_3d/simple_3d.dart';
+import 'package:util_simple_3d/src/math/util_search_value.dart';
 import 'package:util_simple_3d/util_simple_3d.dart';
 
 void main() {
@@ -94,5 +95,30 @@ void main() {
     expect(range1.isOverlapping(range6), true);
     expect(range1.isOverlapping(range7), false);
     expect(range1.isOverlapping(range8), true);
+  });
+
+  test('generateList', () {
+    VRange range1 = VRange(min: 0.1, max: 9.5);
+    IntVRange range2 = IntVRange(min: 0, max: 8);
+    List<int> gl1 = range1.generateList(2);
+    List<int> gl2 = range2.generateList(3);
+    expect(gl1.length == 5, true);
+    expect(gl1.first == 1, true);
+    expect(gl1[1] == 3, true);
+    expect(gl1.last == 9, true);
+    expect(gl2.length == 3, true);
+    expect(gl2.first == 0, true);
+    expect(gl2[1] == 3, true);
+    expect(gl2.last == 6, true);
+  });
+
+  test('findClosestValue', () {
+    IntVRange range = IntVRange(min: 0, max: 8);
+    expect(
+        UtilSearchValue.findClosestValueForDouble([0.1, 2, 3, 3.5, 5], 3.2) ==
+            3,
+        true);
+    expect(
+        UtilSearchValue.findClosestValue(range.generateList(1), 5) == 5, true);
   });
 }
