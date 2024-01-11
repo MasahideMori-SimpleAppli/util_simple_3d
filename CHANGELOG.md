@@ -1,3 +1,8 @@
+## 9.3.2
+
+* Updates associated with base library updates.
+* Orange, pink, and purple variations have been added to FSp3dMaterial.
+
 ## 9.3.1
 
 * Fixed missing reference to UtilSearchValue class.
