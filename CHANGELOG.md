@@ -1,3 +1,7 @@
+## 9.4.1
+
+* Updates associated with base library updates.
+
 ## 9.4.0
 
 * Updates associated with base library updates.
