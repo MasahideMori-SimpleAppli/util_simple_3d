@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:simple_3d/simple_3d.dart';
-import 'package:util_simple_3d/src/math/util_search_value.dart';
 import 'package:util_simple_3d/util_simple_3d.dart';
 
 void main() {
@@ -120,5 +119,15 @@ void main() {
         true);
     expect(
         UtilSearchValue.findClosestValue(range.generateList(1), 5) == 5, true);
+  });
+
+  test('generateDoubleList', () {
+    VRange range = VRange(min: 0, max: 8);
+    List<double> dList = range.generateDoubleList(2);
+    expect(dList[0] == 0, true);
+    expect(dList[1] == 2, true);
+    expect(dList[2] == 4, true);
+    expect(dList[3] == 6, true);
+    expect(dList[4] == 8, true);
   });
 }

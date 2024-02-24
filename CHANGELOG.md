@@ -1,6 +1,7 @@
-## 9.3.3
+## 9.4.0
 
 * Updates associated with base library updates.
+* Added generateDoubleList method to VRange class.
 
 ## 9.3.2
 
