@@ -12,38 +12,38 @@ void main() {
 
     obj = UtilSp3dGeometry.tile(200, 200, 4, 4);
     obj.materials[0] = FSp3dMaterial.grey.deepCopy()
-      ..strokeColor = Color.fromARGB(255, 0, 255, 0);
+      ..strokeColor = const Color.fromARGB(255, 0, 255, 0);
 
     obj = UtilSp3dGeometry.cube(200, 200, 200, 4, 4, 4);
     obj.materials.add(FSp3dMaterial.green.deepCopy());
     obj.fragments[0].faces[0].materialIndex = 1;
     obj.materials[0] = FSp3dMaterial.grey.deepCopy()
-      ..strokeColor = Color.fromARGB(255, 0, 0, 255);
+      ..strokeColor = const Color.fromARGB(255, 0, 0, 255);
     obj.rotate(Sp3dV3D(1, 1, 0).nor(), 30 * 3.14 / 180);
 
     obj = UtilSp3dGeometry.circle(100, fragments: 20);
     obj.materials[0] = FSp3dMaterial.grey.deepCopy()
-      ..strokeColor = Color.fromARGB(255, 0, 255, 0);
+      ..strokeColor = const Color.fromARGB(255, 0, 255, 0);
 
     obj = UtilSp3dGeometry.cone(100, 200);
     obj.materials[0] = FSp3dMaterial.grey.deepCopy()
-      ..strokeColor = Color.fromARGB(255, 0, 255, 0);
+      ..strokeColor = const Color.fromARGB(255, 0, 255, 0);
     obj.rotate(Sp3dV3D(1, 0, 0), -100 * 3.14 / 180);
     obj.move(Sp3dV3D(0, -100, 0));
 
     obj = UtilSp3dGeometry.pillar(50, 50, 200);
     obj.materials[0] = FSp3dMaterial.grey.deepCopy()
-      ..strokeColor = Color.fromARGB(255, 0, 255, 0);
+      ..strokeColor = const Color.fromARGB(255, 0, 255, 0);
     obj.rotate(Sp3dV3D(1, 0, 0), -120 * 3.14 / 180);
     obj.move(Sp3dV3D(0, -100, 0));
 
     obj = UtilSp3dGeometry.sphere(100);
     obj.materials[0] = FSp3dMaterial.grey.deepCopy()
-      ..strokeColor = Color.fromARGB(255, 0, 255, 0);
+      ..strokeColor = const Color.fromARGB(255, 0, 255, 0);
 
     obj = UtilSp3dGeometry.capsule(50, 200);
     obj.materials[0] = FSp3dMaterial.grey.deepCopy()
-      ..strokeColor = Color.fromARGB(255, 0, 255, 0);
+      ..strokeColor = const Color.fromARGB(255, 0, 255, 0);
     obj.move(Sp3dV3D(0, 100, 0));
 
     obj = UtilSp3dGeometry.cube(200, 200, 200, 4, 4, 4);
@@ -69,7 +69,7 @@ void main() {
   });
 
   test('isInRange', () {
-    VRange range = VRange(min: 1, max: 5);
+    VRange range = const VRange(min: 1, max: 5);
     expect(range.isInRange(0), false);
     expect(range.isInRange(1), true);
     expect(range.isInRange(3), true);
@@ -78,14 +78,14 @@ void main() {
   });
 
   test('isOverlapping', () {
-    VRange range1 = VRange(min: 1, max: 5);
-    VRange range2 = VRange(min: 1, max: 1);
-    VRange range3 = VRange(min: 0, max: 1);
-    VRange range4 = VRange(min: 0, max: 0);
-    VRange range5 = VRange(min: 5, max: 5);
-    VRange range6 = VRange(min: 5, max: 6);
-    VRange range7 = VRange(min: 6, max: 6);
-    VRange range8 = VRange(min: 2, max: 3);
+    VRange range1 = const VRange(min: 1, max: 5);
+    VRange range2 = const VRange(min: 1, max: 1);
+    VRange range3 = const VRange(min: 0, max: 1);
+    VRange range4 = const VRange(min: 0, max: 0);
+    VRange range5 = const VRange(min: 5, max: 5);
+    VRange range6 = const VRange(min: 5, max: 6);
+    VRange range7 = const VRange(min: 6, max: 6);
+    VRange range8 = const VRange(min: 2, max: 3);
     expect(range1.isOverlapping(range1), true);
     expect(range1.isOverlapping(range2), true);
     expect(range1.isOverlapping(range3), true);
@@ -97,8 +97,8 @@ void main() {
   });
 
   test('generateList', () {
-    VRange range1 = VRange(min: 0.1, max: 9.5);
-    IntVRange range2 = IntVRange(min: 0, max: 8);
+    VRange range1 = const VRange(min: 0.1, max: 9.5);
+    IntVRange range2 = const IntVRange(min: 0, max: 8);
     List<int> gl1 = range1.generateList(2);
     List<int> gl2 = range2.generateList(3);
     expect(gl1.length == 5, true);
@@ -112,7 +112,7 @@ void main() {
   });
 
   test('findClosestValue', () {
-    IntVRange range = IntVRange(min: 0, max: 8);
+    IntVRange range = const IntVRange(min: 0, max: 8);
     expect(
         UtilSearchValue.findClosestValueForDouble([0.1, 2, 3, 3.5, 5], 3.2) ==
             3,
@@ -122,7 +122,7 @@ void main() {
   });
 
   test('generateDoubleList', () {
-    VRange range = VRange(min: 0, max: 8);
+    VRange range = const VRange(min: 0, max: 8);
     List<double> dList = range.generateDoubleList(2);
     expect(dList[0] == 0, true);
     expect(dList[1] == 2, true);
