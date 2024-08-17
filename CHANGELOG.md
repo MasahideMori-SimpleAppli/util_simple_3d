@@ -1,3 +1,7 @@
+## 10.0.2
+
+* Updates associated with base library updates.
+
 ## 10.0.1
 
 * The test code has been updated.
