@@ -130,4 +130,21 @@ void main() {
     expect(dList[3] == 6, true);
     expect(dList[4] == 8, true);
   });
+
+  test('generateDoubleStepDoubleList', () {
+    VRange range = const VRange(min: 0, max: 8.2);
+    List<double> dList1 = range.generateDoubleStepDoubleList(0.5, false);
+    expect(dList1[0] == 0, true);
+    expect(dList1[1] == 0.5, true);
+    expect(dList1[2] == 1, true);
+    expect(dList1[16] == 8, true);
+    expect(dList1.length == 17, true);
+    List<double> dList2 = range.generateDoubleStepDoubleList(0.5, true);
+    expect(dList2[0] == 0, true);
+    expect(dList2[1] == 0.5, true);
+    expect(dList2[2] == 1, true);
+    expect(dList2[16] == 8, true);
+    expect(dList2[17] == 8.2, true);
+    expect(dList2.length == 18, true);
+  });
 }

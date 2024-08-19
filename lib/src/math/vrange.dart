@@ -91,4 +91,38 @@ class VRange {
     }
     return r;
   }
+
+  /// (en) Creates a list within this range with specified steps.
+  ///
+  /// (ja) この範囲内で、指定されたステップでリストを作成します。
+  ///
+  /// * [step] : The list will be created with this number of steps.
+  /// Step must be greater than 0.
+  /// * [isContainsMax] : If true, In the returned list,
+  /// the max value will be added if the increment step would cause the value
+  /// to exceed the max value,
+  /// if False the max value will not be added if the increment step would
+  /// cause the value to exceed the max value.
+  ///
+  /// Returns : [min, min + (step * 1), min + (step * 2),
+  /// ... max or min + (step * X)].
+  List<double> generateDoubleStepDoubleList(double step, bool isContainsMax) {
+    List<double> r = [min];
+    double now = min;
+    while (now < max) {
+      now += step;
+      if (now <= max) {
+        // This prevents the rare case in certain versions where
+        // variable references may be broken when compiling to JavaScript.
+        final double nowV = now;
+        r.add(nowV);
+      } else {
+        if (isContainsMax) {
+          final double nowV = max;
+          r.add(nowV);
+        }
+      }
+    }
+    return r;
+  }
 }
