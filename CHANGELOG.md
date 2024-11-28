@@ -1,3 +1,7 @@
+## 11.0.0
+
+* Updates associated with base library updates.
+
 ## 10.1.0
 
 * Added generateDoubleStepDoubleList method to VRange class.
