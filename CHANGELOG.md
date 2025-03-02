@@ -1,3 +1,8 @@
+## 12.0.0
+
+* Updates associated with base library updates.
+* Updated minimum SDK version.
+
 ## 11.0.0
 
 * Updates associated with base library updates.

@@ -62,8 +62,6 @@ void main() {
     List<Sp3dV3D> v = UtilBezier.bezierCurve(
         Sp3dV3D(0, 0, 0), Sp3dV3D(1, 1, 0), Sp3dV3D(2, 0, 0), 1000);
     expect(v[0].equals(Sp3dV3D(0, 0, 0), 0.01), true);
-    print("The approximate calculation result");
-    print(v[499].toString());
     expect(v[499].equals(Sp3dV3D(1, 1, 0), 0.01), true);
     expect(v[999].equals(Sp3dV3D(2, 0, 0), 0.01), true);
   });
