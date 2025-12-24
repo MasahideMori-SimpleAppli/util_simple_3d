@@ -1,3 +1,7 @@
+## 12.0.4
+
+* Updates associated with base library updates.
+
 ## 12.0.3
 
 * Updates associated with base library updates.
