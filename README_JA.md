@@ -10,7 +10,7 @@
 
 ## 使い方
 ### ジオメトリの作成
-```dart
+```text
 import 'package:simple_3d/simple_3d.dart';
 import 'package:util_simple_3d/util_simple_3d.dart';
 
@@ -18,7 +18,7 @@ Sp3dObj obj = UtilSp3dGeometry.capsule(50, 250);
 ```
 
 ### 標準マテリアルの適用方法
-```dart
+```text
 import 'package:simple_3d/simple_3d.dart';
 import 'package:util_simple_3d/util_simple_3d.dart';
 
@@ -29,13 +29,13 @@ obj.fragments[0].faces[0].materialIndex=1;
 
 ## 利用出来るジオメトリのタイプ
 ### Tile
-```dart
+```text
 Sp3dObj obj = UtilSp3dGeometry.tile(200, 200, 4, 4);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
 ![Tile](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/tile_sample1.png)
 ### Cube
-```dart
+```text
 Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
 obj.materials.add(FSp3dMaterial.green.deepCopy());
 obj.fragments[0].faces[0].materialIndex=1;
@@ -44,13 +44,13 @@ obj.rotate(Sp3dV3D(1,1,0).nor(), 30*3.14/180);
 ```
 ![Cube](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cube_sample1.png)
 ### Circle
-```dart
+```text
 Sp3dObj obj = UtilSp3dGeometry.circle(100, fragments: 20);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
 ![Circle](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/circle_sample1.png)
 ### Cone
-```dart
+```text
 Sp3dObj obj = UtilSp3dGeometry.cone(100, 200);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 obj.rotate(Sp3dV3D(1, 0, 0), -100*3.14/180);
@@ -58,7 +58,7 @@ obj.move(Sp3dV3D(0, -100, 0));
 ```
 ![Cone](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/cone_sample1.png)
 ### Pillar
-```dart
+```text
 Sp3dObj obj = UtilSp3dGeometry.pillar(50, 50, 200);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 obj.rotate(Sp3dV3D(1, 0, 0), -120*3.14/180);
@@ -66,20 +66,20 @@ obj.move(Sp3dV3D(0, -100, 0));
 ```
 ![Pillar](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/pillar_sample1.png)
 ### Sphere
-```dart
+```text
 Sp3dObj obj = UtilSp3dGeometry.sphere(100);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 ```
 ![Sphere](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/sphere_sample1.png)
 ### Capsule
-```dart
+```text
 Sp3dObj obj = UtilSp3dGeometry.capsule(50,200);
 obj.materials[0] = FSp3dMaterial.grey.deepCopy()..strokeColor=Color.fromARGB(255, 0, 255, 0);
 obj.move(Sp3dV3D(0, 100, 0));
 ```
 ![Capsule](https://raw.githubusercontent.com/MasahideMori1111/simple_3d_images/main/Util_Sp3dGeometry/capsule_sample1.png)
 ### Wire frame
-```dart
+```text
 Sp3dObj obj = UtilSp3dGeometry.cube(200,200,200,4,4,4);
 obj.materials.add(FSp3dMaterial.greenWire.deepCopy());
 obj.fragments[0].faces[0].materialIndex = 1;
@@ -90,7 +90,7 @@ obj.rotate(Sp3dV3D(-0.2,0.5,0).nor(), 15*3.14/180);
 
 ## 利用出来るコモンパーツ
 ### 座標系とメッシュの作成
-```dart
+```text
 List<Sp3dObj> objs = UtilSp3dCommonParts.coordinateArrows(255);
 objs.addAll(UtilSp3dCommonParts.worldMeshes(255));
 ```
@@ -121,6 +121,7 @@ objs.addAll(UtilSp3dCommonParts.worldMeshes(255));
 ## ライセンス
 このソフトウェアはMITライセンスの元配布されます。LICENSEファイルの内容をご覧ください。
 
-## 著作権表示
-The “Dart” name and “Flutter” name are trademarks of Google LLC.  
-*The developer of this package is not Google LLC.
+## Trademarks
+
+- “Dart” and “Flutter” are trademarks of Google LLC.  
+  *This package is not developed or endorsed by Google LLC.*

@@ -1,5 +1,5 @@
 import 'package:simple_3d/simple_3d.dart';
-import '../util_simple_3d.dart';
+import 'package:util_simple_3d/util_simple_3d.dart';
 
 /// (en)A utility to generate common parts using sp3d.
 /// (ja)sp3dを使った一般的なパーツを生成するユーティリティです。

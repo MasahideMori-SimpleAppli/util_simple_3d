@@ -1,5 +1,5 @@
 import 'package:simple_3d/simple_3d.dart';
-import '../util_simple_3d.dart';
+import 'package:util_simple_3d/util_simple_3d.dart';
 
 /// (en)It is a utility related to the three-dimensional structure using sp3d.
 /// (ja)sp3dを使った立体構造に関するユーティリティです。
