@@ -1,3 +1,7 @@
+## 12.0.7
+
+* Updates associated with base library updates (no significant behavior change).
+
 ## 12.0.6
 
 * Updates associated with base library updates (no significant behavior change).
